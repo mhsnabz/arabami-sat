@@ -1,6 +1,0 @@
-framework module Pods_ARABAMI_SAT_ARABAMI_SATUITests {
-  umbrella header "Pods-ARABAMI SAT-ARABAMI SATUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
