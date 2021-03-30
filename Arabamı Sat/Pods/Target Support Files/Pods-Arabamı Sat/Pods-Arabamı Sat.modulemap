@@ -1,6 +1,0 @@
-framework module Pods_Arabam__Sat {
-  umbrella header "Pods-Arabamı Sat-umbrella.h"
-
-  export *
-  module * { export * }
-}

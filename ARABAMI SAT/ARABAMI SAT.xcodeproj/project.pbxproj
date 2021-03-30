@@ -1,0 +1,788 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		660F93F2261397B00004753F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F93F1261397B00004753F /* AppDelegate.swift */; };
+		660F93FB261397B10004753F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 660F93FA261397B10004753F /* Assets.xcassets */; };
+		660F93FE261397B10004753F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 660F93FC261397B10004753F /* LaunchScreen.storyboard */; };
+		660F9409261397B10004753F /* ARABAMI_SATTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F9408261397B10004753F /* ARABAMI_SATTests.swift */; };
+		660F9414261397B10004753F /* ARABAMI_SATUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F9413261397B10004753F /* ARABAMI_SATUITests.swift */; };
+		660F946A2613999B0004753F /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F94692613999B0004753F /* SplashScreen.swift */; };
+		660F9472261399D00004753F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 660F9471261399D00004753F /* GoogleService-Info.plist */; };
+		660F948026139BC30004753F /* FirstScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F947F26139BC30004753F /* FirstScreen.swift */; };
+		9D50D99F06DE4D6C7710CE5F /* Pods_ARABAMI_SAT_ARABAMI_SATUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439175E3227B304A0EB3D03B /* Pods_ARABAMI_SAT_ARABAMI_SATUITests.framework */; };
+		A728F063FAF85B76CB1F93E3 /* Pods_ARABAMI_SATTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B095C7329CA8B2C7A33C56 /* Pods_ARABAMI_SATTests.framework */; };
+		FC5BC9B9BF78478C7C6F80D8 /* Pods_ARABAMI_SAT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D21F4B559A9A87D12651045 /* Pods_ARABAMI_SAT.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		660F9405261397B10004753F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 660F93E6261397B00004753F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 660F93ED261397B00004753F;
+			remoteInfo = "ARABAMI SAT";
+		};
+		660F9410261397B10004753F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 660F93E6261397B00004753F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 660F93ED261397B00004753F;
+			remoteInfo = "ARABAMI SAT";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1794FE1CD079C7A3D0A1363B /* Pods-ARABAMI SAT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARABAMI SAT.debug.xcconfig"; path = "Target Support Files/Pods-ARABAMI SAT/Pods-ARABAMI SAT.debug.xcconfig"; sourceTree = "<group>"; };
+		3D5A60BD27B9585831B59F7D /* Pods-ARABAMI SATTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARABAMI SATTests.release.xcconfig"; path = "Target Support Files/Pods-ARABAMI SATTests/Pods-ARABAMI SATTests.release.xcconfig"; sourceTree = "<group>"; };
+		439175E3227B304A0EB3D03B /* Pods_ARABAMI_SAT_ARABAMI_SATUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARABAMI_SAT_ARABAMI_SATUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		660F93EE261397B00004753F /* ARABAMI SAT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ARABAMI SAT.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		660F93F1261397B00004753F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		660F93FA261397B10004753F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		660F93FD261397B10004753F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		660F93FF261397B10004753F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		660F9404261397B10004753F /* ARABAMI SATTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ARABAMI SATTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		660F9408261397B10004753F /* ARABAMI_SATTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARABAMI_SATTests.swift; sourceTree = "<group>"; };
+		660F940A261397B10004753F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		660F940F261397B10004753F /* ARABAMI SATUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ARABAMI SATUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		660F9413261397B10004753F /* ARABAMI_SATUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARABAMI_SATUITests.swift; sourceTree = "<group>"; };
+		660F9415261397B10004753F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		660F94692613999B0004753F /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		660F9471261399D00004753F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		660F947F26139BC30004753F /* FirstScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstScreen.swift; sourceTree = "<group>"; };
+		785ED48459F0ED1648D77448 /* Pods-ARABAMI SAT-ARABAMI SATUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARABAMI SAT-ARABAMI SATUITests.release.xcconfig"; path = "Target Support Files/Pods-ARABAMI SAT-ARABAMI SATUITests/Pods-ARABAMI SAT-ARABAMI SATUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8D21F4B559A9A87D12651045 /* Pods_ARABAMI_SAT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARABAMI_SAT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A544F31B3C18CAC424DFACD1 /* Pods-ARABAMI SAT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARABAMI SAT.release.xcconfig"; path = "Target Support Files/Pods-ARABAMI SAT/Pods-ARABAMI SAT.release.xcconfig"; sourceTree = "<group>"; };
+		B8B095C7329CA8B2C7A33C56 /* Pods_ARABAMI_SATTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARABAMI_SATTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3FF0ECB5A527ACF2D2FE5EF /* Pods-ARABAMI SAT-ARABAMI SATUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARABAMI SAT-ARABAMI SATUITests.debug.xcconfig"; path = "Target Support Files/Pods-ARABAMI SAT-ARABAMI SATUITests/Pods-ARABAMI SAT-ARABAMI SATUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FF866ED7407A2D3D049316E3 /* Pods-ARABAMI SATTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARABAMI SATTests.debug.xcconfig"; path = "Target Support Files/Pods-ARABAMI SATTests/Pods-ARABAMI SATTests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		660F93EB261397B00004753F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC5BC9B9BF78478C7C6F80D8 /* Pods_ARABAMI_SAT.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		660F9401261397B10004753F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A728F063FAF85B76CB1F93E3 /* Pods_ARABAMI_SATTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		660F940C261397B10004753F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D50D99F06DE4D6C7710CE5F /* Pods_ARABAMI_SAT_ARABAMI_SATUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		660F93E5261397B00004753F = {
+			isa = PBXGroup;
+			children = (
+				660F93F0261397B00004753F /* ARABAMI SAT */,
+				660F9407261397B10004753F /* ARABAMI SATTests */,
+				660F9412261397B10004753F /* ARABAMI SATUITests */,
+				660F93EF261397B00004753F /* Products */,
+				7EEF051B9C00CE2912F3DD28 /* Pods */,
+				BD94E1F41C975FF5383FA09E /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		660F93EF261397B00004753F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				660F93EE261397B00004753F /* ARABAMI SAT.app */,
+				660F9404261397B10004753F /* ARABAMI SATTests.xctest */,
+				660F940F261397B10004753F /* ARABAMI SATUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		660F93F0261397B00004753F /* ARABAMI SAT */ = {
+			isa = PBXGroup;
+			children = (
+				660F947F26139BC30004753F /* FirstScreen.swift */,
+				660F9471261399D00004753F /* GoogleService-Info.plist */,
+				660F9468261399850004753F /* Splash Screen */,
+				660F93F1261397B00004753F /* AppDelegate.swift */,
+				660F93FA261397B10004753F /* Assets.xcassets */,
+				660F93FC261397B10004753F /* LaunchScreen.storyboard */,
+				660F93FF261397B10004753F /* Info.plist */,
+			);
+			path = "ARABAMI SAT";
+			sourceTree = "<group>";
+		};
+		660F9407261397B10004753F /* ARABAMI SATTests */ = {
+			isa = PBXGroup;
+			children = (
+				660F9408261397B10004753F /* ARABAMI_SATTests.swift */,
+				660F940A261397B10004753F /* Info.plist */,
+			);
+			path = "ARABAMI SATTests";
+			sourceTree = "<group>";
+		};
+		660F9412261397B10004753F /* ARABAMI SATUITests */ = {
+			isa = PBXGroup;
+			children = (
+				660F9413261397B10004753F /* ARABAMI_SATUITests.swift */,
+				660F9415261397B10004753F /* Info.plist */,
+			);
+			path = "ARABAMI SATUITests";
+			sourceTree = "<group>";
+		};
+		660F9468261399850004753F /* Splash Screen */ = {
+			isa = PBXGroup;
+			children = (
+				660F94692613999B0004753F /* SplashScreen.swift */,
+			);
+			path = "Splash Screen";
+			sourceTree = "<group>";
+		};
+		7EEF051B9C00CE2912F3DD28 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1794FE1CD079C7A3D0A1363B /* Pods-ARABAMI SAT.debug.xcconfig */,
+				A544F31B3C18CAC424DFACD1 /* Pods-ARABAMI SAT.release.xcconfig */,
+				F3FF0ECB5A527ACF2D2FE5EF /* Pods-ARABAMI SAT-ARABAMI SATUITests.debug.xcconfig */,
+				785ED48459F0ED1648D77448 /* Pods-ARABAMI SAT-ARABAMI SATUITests.release.xcconfig */,
+				FF866ED7407A2D3D049316E3 /* Pods-ARABAMI SATTests.debug.xcconfig */,
+				3D5A60BD27B9585831B59F7D /* Pods-ARABAMI SATTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		BD94E1F41C975FF5383FA09E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8D21F4B559A9A87D12651045 /* Pods_ARABAMI_SAT.framework */,
+				439175E3227B304A0EB3D03B /* Pods_ARABAMI_SAT_ARABAMI_SATUITests.framework */,
+				B8B095C7329CA8B2C7A33C56 /* Pods_ARABAMI_SATTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		660F93ED261397B00004753F /* ARABAMI SAT */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 660F9418261397B10004753F /* Build configuration list for PBXNativeTarget "ARABAMI SAT" */;
+			buildPhases = (
+				A0F1303F0F1FC74CCC6F4EA9 /* [CP] Check Pods Manifest.lock */,
+				660F93EA261397B00004753F /* Sources */,
+				660F93EB261397B00004753F /* Frameworks */,
+				660F93EC261397B00004753F /* Resources */,
+				04B01130C932763B6C4C4D5B /* [CP] Embed Pods Frameworks */,
+				ABA768C333A290B8C2AC2854 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ARABAMI SAT";
+			productName = "ARABAMI SAT";
+			productReference = 660F93EE261397B00004753F /* ARABAMI SAT.app */;
+			productType = "com.apple.product-type.application";
+		};
+		660F9403261397B10004753F /* ARABAMI SATTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 660F941B261397B10004753F /* Build configuration list for PBXNativeTarget "ARABAMI SATTests" */;
+			buildPhases = (
+				C9B8A3A4594804519D4AB53E /* [CP] Check Pods Manifest.lock */,
+				660F9400261397B10004753F /* Sources */,
+				660F9401261397B10004753F /* Frameworks */,
+				660F9402261397B10004753F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				660F9406261397B10004753F /* PBXTargetDependency */,
+			);
+			name = "ARABAMI SATTests";
+			productName = "ARABAMI SATTests";
+			productReference = 660F9404261397B10004753F /* ARABAMI SATTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		660F940E261397B10004753F /* ARABAMI SATUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 660F941E261397B10004753F /* Build configuration list for PBXNativeTarget "ARABAMI SATUITests" */;
+			buildPhases = (
+				10D7E32C5651E136034AFE09 /* [CP] Check Pods Manifest.lock */,
+				660F940B261397B10004753F /* Sources */,
+				660F940C261397B10004753F /* Frameworks */,
+				660F940D261397B10004753F /* Resources */,
+				EA89962A03BCCBF5429FC05F /* [CP] Embed Pods Frameworks */,
+				408C8A498759DADF887D4E49 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				660F9411261397B10004753F /* PBXTargetDependency */,
+			);
+			name = "ARABAMI SATUITests";
+			productName = "ARABAMI SATUITests";
+			productReference = 660F940F261397B10004753F /* ARABAMI SATUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		660F93E6261397B00004753F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					660F93ED261397B00004753F = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					660F9403261397B10004753F = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 660F93ED261397B00004753F;
+					};
+					660F940E261397B10004753F = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 660F93ED261397B00004753F;
+					};
+				};
+			};
+			buildConfigurationList = 660F93E9261397B00004753F /* Build configuration list for PBXProject "ARABAMI SAT" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 660F93E5261397B00004753F;
+			productRefGroup = 660F93EF261397B00004753F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				660F93ED261397B00004753F /* ARABAMI SAT */,
+				660F9403261397B10004753F /* ARABAMI SATTests */,
+				660F940E261397B10004753F /* ARABAMI SATUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		660F93EC261397B00004753F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				660F93FE261397B10004753F /* LaunchScreen.storyboard in Resources */,
+				660F93FB261397B10004753F /* Assets.xcassets in Resources */,
+				660F9472261399D00004753F /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		660F9402261397B10004753F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		660F940D261397B10004753F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		04B01130C932763B6C4C4D5B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT/Pods-ARABAMI SAT-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT/Pods-ARABAMI SAT-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT/Pods-ARABAMI SAT-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		10D7E32C5651E136034AFE09 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ARABAMI SAT-ARABAMI SATUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		408C8A498759DADF887D4E49 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT-ARABAMI SATUITests/Pods-ARABAMI SAT-ARABAMI SATUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT-ARABAMI SATUITests/Pods-ARABAMI SAT-ARABAMI SATUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT-ARABAMI SATUITests/Pods-ARABAMI SAT-ARABAMI SATUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A0F1303F0F1FC74CCC6F4EA9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ARABAMI SAT-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ABA768C333A290B8C2AC2854 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT/Pods-ARABAMI SAT-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT/Pods-ARABAMI SAT-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT/Pods-ARABAMI SAT-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C9B8A3A4594804519D4AB53E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ARABAMI SATTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA89962A03BCCBF5429FC05F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT-ARABAMI SATUITests/Pods-ARABAMI SAT-ARABAMI SATUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT-ARABAMI SATUITests/Pods-ARABAMI SAT-ARABAMI SATUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ARABAMI SAT-ARABAMI SATUITests/Pods-ARABAMI SAT-ARABAMI SATUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		660F93EA261397B00004753F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				660F946A2613999B0004753F /* SplashScreen.swift in Sources */,
+				660F93F2261397B00004753F /* AppDelegate.swift in Sources */,
+				660F948026139BC30004753F /* FirstScreen.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		660F9400261397B10004753F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				660F9409261397B10004753F /* ARABAMI_SATTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		660F940B261397B10004753F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				660F9414261397B10004753F /* ARABAMI_SATUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		660F9406261397B10004753F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 660F93ED261397B00004753F /* ARABAMI SAT */;
+			targetProxy = 660F9405261397B10004753F /* PBXContainerItemProxy */;
+		};
+		660F9411261397B10004753F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 660F93ED261397B00004753F /* ARABAMI SAT */;
+			targetProxy = 660F9410261397B10004753F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		660F93FC261397B10004753F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				660F93FD261397B10004753F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		660F9416261397B10004753F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		660F9417261397B10004753F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		660F9419261397B10004753F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1794FE1CD079C7A3D0A1363B /* Pods-ARABAMI SAT.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F68Q68LA39;
+				INFOPLIST_FILE = "ARABAMI SAT/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.arabami.sat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		660F941A261397B10004753F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A544F31B3C18CAC424DFACD1 /* Pods-ARABAMI SAT.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F68Q68LA39;
+				INFOPLIST_FILE = "ARABAMI SAT/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.arabami.sat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		660F941C261397B10004753F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF866ED7407A2D3D049316E3 /* Pods-ARABAMI SATTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F68Q68LA39;
+				INFOPLIST_FILE = "ARABAMI SATTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arabami.sat.ARABAMI-SATTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARABAMI SAT.app/ARABAMI SAT";
+			};
+			name = Debug;
+		};
+		660F941D261397B10004753F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D5A60BD27B9585831B59F7D /* Pods-ARABAMI SATTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F68Q68LA39;
+				INFOPLIST_FILE = "ARABAMI SATTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arabami.sat.ARABAMI-SATTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARABAMI SAT.app/ARABAMI SAT";
+			};
+			name = Release;
+		};
+		660F941F261397B10004753F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3FF0ECB5A527ACF2D2FE5EF /* Pods-ARABAMI SAT-ARABAMI SATUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F68Q68LA39;
+				INFOPLIST_FILE = "ARABAMI SATUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arabami.sat.ARABAMI-SATUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ARABAMI SAT";
+			};
+			name = Debug;
+		};
+		660F9420261397B10004753F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 785ED48459F0ED1648D77448 /* Pods-ARABAMI SAT-ARABAMI SATUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F68Q68LA39;
+				INFOPLIST_FILE = "ARABAMI SATUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arabami.sat.ARABAMI-SATUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ARABAMI SAT";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		660F93E9261397B00004753F /* Build configuration list for PBXProject "ARABAMI SAT" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				660F9416261397B10004753F /* Debug */,
+				660F9417261397B10004753F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		660F9418261397B10004753F /* Build configuration list for PBXNativeTarget "ARABAMI SAT" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				660F9419261397B10004753F /* Debug */,
+				660F941A261397B10004753F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		660F941B261397B10004753F /* Build configuration list for PBXNativeTarget "ARABAMI SATTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				660F941C261397B10004753F /* Debug */,
+				660F941D261397B10004753F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		660F941E261397B10004753F /* Build configuration list for PBXNativeTarget "ARABAMI SATUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				660F941F261397B10004753F /* Debug */,
+				660F9420261397B10004753F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 660F93E6261397B00004753F /* Project object */;
+}
