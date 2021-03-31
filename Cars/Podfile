@@ -7,7 +7,7 @@ target 'Cars' do
 
   # Pods for Cars
 
-  
+  pod 'RevealingSplashView'
   pod 'TweeTextField'
   
   pod 'Firebase'

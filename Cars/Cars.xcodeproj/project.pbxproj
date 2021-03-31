@@ -21,6 +21,12 @@
 		660F95612613CA350004753F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F95602613CA350004753F /* Extensions.swift */; };
 		660F95982613F11C0004753F /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F95972613F11C0004753F /* RegisterController.swift */; };
 		660F959D2613F3670004753F /* CompleteSignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F959C2613F3670004753F /* CompleteSignUpVC.swift */; };
+		66E6DB50261465B20069F272 /* TaskUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB4F261465B20069F272 /* TaskUser.swift */; };
+		66E6DB592614672F0069F272 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB582614672F0069F272 /* UserService.swift */; };
+		66E6DB9426147BD30069F272 /* UploadSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB9326147BD30069F272 /* UploadSerivce.swift */; };
+		66E6DB9C26147C590069F272 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB9B26147C590069F272 /* Enums.swift */; };
+		66E6DBA126148C4E0069F272 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DBA026148C4E0069F272 /* CurrentUser.swift */; };
+		66E6DBAA26148C7D0069F272 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DBA926148C7D0069F272 /* FeedVC.swift */; };
 		733237704B5FEB2EAEF4546A /* Pods_CarsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0345B539DBD89CFA9E9F8747 /* Pods_CarsTests.framework */; };
 		BAA6C59B0CE881FBEA9B7EE9 /* Pods_Cars_CarsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F885A083FA10C02192D36F99 /* Pods_Cars_CarsUITests.framework */; };
 /* End PBXBuildFile section */
@@ -65,6 +71,12 @@
 		660F95602613CA350004753F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		660F95972613F11C0004753F /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
 		660F959C2613F3670004753F /* CompleteSignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpVC.swift; sourceTree = "<group>"; };
+		66E6DB4F261465B20069F272 /* TaskUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskUser.swift; sourceTree = "<group>"; };
+		66E6DB582614672F0069F272 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		66E6DB9326147BD30069F272 /* UploadSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadSerivce.swift; sourceTree = "<group>"; };
+		66E6DB9B26147C590069F272 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		66E6DBA026148C4E0069F272 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
+		66E6DBA926148C7D0069F272 /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		72751AD71E2D078714D3994D /* Pods-Cars.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cars.debug.xcconfig"; path = "Target Support Files/Pods-Cars/Pods-Cars.debug.xcconfig"; sourceTree = "<group>"; };
 		79C2BD9565CB6AE72F7AA800 /* Pods-Cars-CarsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cars-CarsUITests.release.xcconfig"; path = "Target Support Files/Pods-Cars-CarsUITests/Pods-Cars-CarsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9540716EEF10C5527722A30A /* Pods_Cars.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cars.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +151,9 @@
 		660F94AA2613C3EC0004753F /* Cars */ = {
 			isa = PBXGroup;
 			children = (
+				66E6DBA826148C710069F272 /* Home */,
+				66E6DB57261467230069F272 /* Service */,
+				66E6DB4E261465A50069F272 /* Model */,
 				660F95572613CA1C0004753F /* Helper */,
 				660F94EC2613C5BC0004753F /* Auth Controller */,
 				660F94AB2613C3EC0004753F /* AppDelegate.swift */,
@@ -148,6 +163,7 @@
 				660F94B62613C3EE0004753F /* LaunchScreen.storyboard */,
 				660F94B92613C3EE0004753F /* Info.plist */,
 				660F95262613C8C10004753F /* GoogleService-Info.plist */,
+				66E6DB9B26147C590069F272 /* Enums.swift */,
 			);
 			path = Cars;
 			sourceTree = "<group>";
@@ -187,6 +203,32 @@
 				660F95602613CA350004753F /* Extensions.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		66E6DB4E261465A50069F272 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				66E6DB4F261465B20069F272 /* TaskUser.swift */,
+				66E6DBA026148C4E0069F272 /* CurrentUser.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		66E6DB57261467230069F272 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				66E6DB582614672F0069F272 /* UserService.swift */,
+				66E6DB9326147BD30069F272 /* UploadSerivce.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		66E6DBA826148C710069F272 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				66E6DBA926148C7D0069F272 /* FeedVC.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		AC2E872244B24DFA0B6960B5 /* Frameworks */ = {
@@ -473,14 +515,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66E6DB9426147BD30069F272 /* UploadSerivce.swift in Sources */,
 				660F95592613CA290004753F /* Utils.swift in Sources */,
 				660F959D2613F3670004753F /* CompleteSignUpVC.swift in Sources */,
 				660F95612613CA350004753F /* Extensions.swift in Sources */,
 				660F94E52613C5700004753F /* SplashScreen.swift in Sources */,
 				660F95982613F11C0004753F /* RegisterController.swift in Sources */,
 				660F94EE2613C5D30004753F /* LoginController.swift in Sources */,
+				66E6DB592614672F0069F272 /* UserService.swift in Sources */,
+				66E6DBAA26148C7D0069F272 /* FeedVC.swift in Sources */,
 				660F94AC2613C3EC0004753F /* AppDelegate.swift in Sources */,
 				660F94AE2613C3EC0004753F /* SceneDelegate.swift in Sources */,
+				66E6DBA126148C4E0069F272 /* CurrentUser.swift in Sources */,
+				66E6DB9C26147C590069F272 /* Enums.swift in Sources */,
+				66E6DB50261465B20069F272 /* TaskUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

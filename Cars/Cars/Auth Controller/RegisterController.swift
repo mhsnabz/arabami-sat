@@ -177,6 +177,9 @@ class RegisterController: UIViewController {
         Utils.waitProgress(msg: "Please Wait")
         email.infoLabel.text = ""
         password.infoLabel.text = ""
+        
+      
+        
         guard  let _email = email.text?.trimmingCharacters(in: .whitespacesAndNewlines) else{
             self.email.infoLabel.text = "Please Enter A Valid E-Mail"
             btnReg.isEnabled = false
@@ -187,6 +190,20 @@ class RegisterController: UIViewController {
         guard  let _pass = password.text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
             self.password.infoLabel.text = "Please Create A Password"
             btnReg.isEnabled = false
+            Utils.shared.enabledButton(btnReg)
+            Utils.dismissProgress()
+            return
+        }
+        if !Utils.shared.isValidEmail(_ : _email) {
+            self.email.infoLabel.text = "Please Enter A Valid E-Mail"
+            btnReg.isEnabled = false
+            Utils.shared.enabledButton(btnReg)
+            Utils.dismissProgress()
+            return
+        }
+        if _pass.count < 6 {
+            self.password.infoLabel.text = "Your Password Is To Short"
+            btnReg.isHidden = false
             Utils.shared.enabledButton(btnReg)
             Utils.dismissProgress()
             return
@@ -217,7 +234,7 @@ class RegisterController: UIViewController {
             }else if let result = result {
               
                 Utils.waitProgress(msg: "Creating New Account")
-                let dic = ["name":"","phoneNumber":"","email":_email,"profileImage":"","thumbImage":""] as [String : AnyObject]
+                let dic = ["name":"","uid":result.user.uid,"phoneNumber":"","email":_email,"profileImage":"","thumbImage":""] as [String : AnyObject]
                 let db = Firestore.firestore().collection("task-user")
                     .document(result.user.uid)
                 db.setData(dic,merge: true) { (err) in
@@ -231,7 +248,9 @@ class RegisterController: UIViewController {
                                 Utils.errorProgress(msg: err.localizedDescription)
 
                             }else{
-                                //navigate
+                               let vc = SplashScreen()
+                                vc.modalPresentationStyle = .fullScreen
+                                self?.present(vc, animated: true, completion: nil)
                             }
                         }
                     }
