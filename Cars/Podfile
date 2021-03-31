@@ -1,0 +1,61 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Cars' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Cars
+
+  
+  pod 'TweeTextField'
+  
+  pod 'Firebase'
+  
+  pod 'Firebase/Auth'
+  
+  pod 'Firebase/Firestore'
+  
+  pod 'Firebase/Storage'
+  
+  pod 'Firebase/Analytics'
+    
+  pod 'Firebase/Messaging'
+  
+  pod 'Firebase/Crashlytics'
+  
+  pod 'GoogleSignIn'
+  
+  
+  pod 'SDWebImage', '~> 5.0'
+ 
+  pod 'SVProgressHUD'
+  
+  pod 'PopupDialog', '~> 1.1'
+  
+  pod 'SwiftyAttributes'
+  
+  pod 'ActiveLabel'
+
+  
+  pod 'lottie-ios'
+  
+  pod 'ImagePicker'
+  
+  pod 'Lightbox'
+  
+  pod 'Gallery'
+
+
+  pod 'SwipeCellKit'
+
+  target 'CarsTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'CarsUITests' do
+    # Pods for testing
+  end
+
+end
