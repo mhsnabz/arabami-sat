@@ -23,6 +23,7 @@ class SplashScreen: UIViewController {
         splashScreen.animationType = .squeezeAndZoomOut
     }
     override func viewDidAppear(_ animated: Bool) {
+        
         if Auth.auth().currentUser?.uid != nil {
             let db = Firestore.firestore().collection("status")
                 .document(Auth.auth().currentUser!.uid)

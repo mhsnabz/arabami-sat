@@ -127,7 +127,11 @@ class RegisterController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         configureUI()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        GIDSignIn.sharedInstance()?.delegate = self
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+    }
     //MARK:-handlers
     fileprivate func configureUI(){
         
@@ -266,8 +270,106 @@ class RegisterController: UIViewController {
         
     }
     @objc func signWithGoogle(){
-        
+        print("DEBUG:: signWithGoogle click")
+        GIDSignIn.sharedInstance()?.signIn()
     }
  
 
+}
+extension RegisterController : GIDSignInDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        print("DEBUG:: did sign in with google")
+        if let err = error {
+            print("DEBUG:: erorr \(err.localizedDescription)")
+        }
+        guard let authentication = user.authentication else { return }
+        let cridenatial = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        Auth.auth().signIn(with: cridenatial) {[weak self] (result, err) in
+            guard let sself = self else { return }
+            if let err = err {
+                print("DEBUG:: auth  error \(err.localizedDescription)")
+                return
+            }
+            else {
+                guard let result = result else { return }
+                 let uid = result.user.uid
+                let user = result.user
+                Utils.waitProgress(msg: "Please Wait")
+                sself.checkUserAlreadyHaveAnAccount(uid: uid) { (val) in
+                    if val{
+                        let vc = SplashScreen()
+                        vc.modalPresentationStyle = .fullScreen
+                        sself.present(vc, animated: true){
+                            Utils.dismissProgress()
+                        }
+                    }else{
+                        sself.checkTaskUser(uid: uid) { (_val) in
+                            if _val
+                            {
+                                let vc = SplashScreen()
+                                vc.modalPresentationStyle = .fullScreen
+                                sself.present(vc, animated: true) {
+                                    Utils.dismissProgress()
+                                }
+                            }else{
+                              
+                                    
+                                let dic = ["name":user.displayName as Any,"profileImage":user.photoURL?.absoluteString as Any,"thumbImage":user.photoURL?.absoluteString as Any,"phoneNumber":user.phoneNumber as Any,"email":user.email as Any] as [String : AnyObject]
+                                UserService.shared.setGoogleSingUpTaskUser(dic: dic, uid: user.uid) { (_val) in
+                                    if _val{
+                                        let vc = SplashScreen()
+                                        vc.modalPresentationStyle = .fullScreen
+                                        sself.present(vc, animated: true) {
+                                            Utils.dismissProgress()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    private func checkUserAlreadyHaveAnAccount(uid : String , completion : @escaping(Bool) ->Void){
+        let db = Firestore.firestore().collection("user").document(uid)
+        db.getDocument { (docSnap, err) in
+            if let err = err {
+                completion(false)
+                print("DEBUG:: erorr \(err.localizedDescription)")
+                return
+            }else{
+                guard let snap = docSnap else {
+                    completion(false)
+                    return}
+                if snap.exists {
+                    completion(true)
+                    return
+                }else{
+                    completion(false)
+                }
+            }
+        }
+    }
+    private func checkTaskUser(uid : String , completion : @escaping(Bool) ->Void){
+        let db = Firestore.firestore().collection("task-user").document(uid)
+        db.getDocument { (docSnap, err) in
+            if let err = err {
+                completion(false)
+                print("DEBUG:: erorr \(err.localizedDescription)")
+                return
+            }else{
+                guard let snap = docSnap else {
+                    completion(false)
+                    return}
+                if snap.exists {
+                    completion(true)
+                    return
+                }else{
+                    completion(false)
+                }
+            }
+        }
+    }
+    
 }

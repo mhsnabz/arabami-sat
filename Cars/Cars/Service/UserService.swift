@@ -53,4 +53,26 @@ class UserService{
         }
     }
     
+    func setGoogleSingUpTaskUser(dic : [String : AnyObject],uid : String , completion : @escaping(Bool) ->Void){
+        let db = Firestore.firestore().collection("status").document(uid)
+        db.setData(["status":false], merge: true) { (err) in
+            if let err = err {
+                print("DEBUG:: status setting error : \(err.localizedDescription)" )
+                completion(false)
+                return
+            }else{
+                let db = Firestore.firestore().collection("task-user").document(uid)
+                db.setData(dic, merge: true) { (err) in
+                    if let err = err {
+                        print("DEBUG:: task user set eroor \(err.localizedDescription)")
+                        completion(false)
+                        return
+                    }else{
+                        completion(true)
+                    }
+                }
+            }
+        }
+    }
+    
 }
