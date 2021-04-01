@@ -12,3 +12,9 @@ protocol QueriesDelegate : class {
 protocol HomeControllerDelegate : class {
     func handleMenuToggle(forMenuOption menuOption : MenuOption?)
 }
+protocol PostTopBarSelectedIndex : class {
+    func getIndex ( indexItem : Int)
+}
+protocol DeleteImage : class  {
+    func deleteImage( for cell : PostImageCell)
+}

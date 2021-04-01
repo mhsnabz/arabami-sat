@@ -91,3 +91,16 @@ extension UIViewController {
     }
 
 }
+extension UICollectionView {
+
+    func setEmptyMessage(_ message: String) {
+        
+        let emptyView = EmptyView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        emptyView.infoText = message
+        self.backgroundView = emptyView;
+    }
+
+    func restore() {
+        self.backgroundView = nil
+    }
+}

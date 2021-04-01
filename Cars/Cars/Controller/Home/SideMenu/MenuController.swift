@@ -59,7 +59,7 @@ extension MenuController :  UITableViewDataSource , UITableViewDelegate{
         
         let menuOption = MenuOption(rawValue : indexPath.row)
         cell.imageIcon.image = menuOption?.image
-        cell.optionButton.setTitle(menuOption?.description, for: .normal)
+        cell.optionButton.text = menuOption?.description
         cell.selectionStyle = .none
         
         return cell

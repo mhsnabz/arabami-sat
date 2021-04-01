@@ -39,6 +39,11 @@ class SideMenuHeaderView: UITableViewHeaderFooterView {
          lbl.textColor = .black
          return lbl
      }()
+    private let line : UIView = {
+       let v = UIView()
+        v.backgroundColor = .darkGray
+        return v
+    }()
     //MARK:-lifeCycle
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -51,12 +56,17 @@ class SideMenuHeaderView: UITableViewHeaderFooterView {
     //MARK:-handlers
     private func configureUI(){
         addSubview(profileImage)
-        profileImage.anchor(top: topAnchor, left: leftAnchor, bottom: nil, rigth: nil, marginTop: 12, marginLeft: 12, marginBottom: 0, marginRigth: 0, width: 75, heigth: 75)
+        profileImage.anchor(top: topAnchor, left: nil, bottom: nil, rigth: nil, marginTop: 12, marginLeft: 12, marginBottom: 0, marginRigth: 0, width: 75, heigth: 75)
         profileImage.layer.cornerRadius = 75 / 2
+        profileImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         addSubview(fullName)
-        fullName.anchor(top: profileImage.bottomAnchor, left: leftAnchor, bottom: nil, rigth: rightAnchor, marginTop: 8, marginLeft: 12, marginBottom: 0, marginRigth: 12, width: 0, heigth: 20)
+        fullName.anchor(top: profileImage.bottomAnchor, left: nil, bottom: nil, rigth: nil, marginTop: 8, marginLeft: 12, marginBottom: 0, marginRigth: 12, width: 0, heigth: 20)
+        fullName.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         addSubview(phoneNumber)
-        phoneNumber.anchor(top: fullName.bottomAnchor, left: leftAnchor, bottom: nil, rigth: nil, marginTop: 8, marginLeft: 12, marginBottom: 0, marginRigth: 0, width: 0, heigth: 20)
+        phoneNumber.anchor(top: fullName.bottomAnchor, left: nil, bottom: nil, rigth: nil, marginTop: 8, marginLeft: 12, marginBottom: 0, marginRigth: 12, width: 0, heigth: 20)
+        phoneNumber.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        addSubview(line)
+        line.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, rigth: rightAnchor, marginTop: 0, marginLeft: 12, marginBottom: 0, marginRigth: 12, width: 0, heigth: 0.4)
     }
     private func setUserInfo(user : CurrentUser){
         fullName.text = user.name
