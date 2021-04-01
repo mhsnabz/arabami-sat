@@ -82,7 +82,7 @@ class SplashScreen: UIViewController {
                 guard let user  = currentUser else { return }
                 guard let sself = self else { return }
                 sself.splashScreen.startAnimation {
-                let controller = UINavigationController(rootViewController: FeedVC(currentUser: user))
+                let controller = UINavigationController(rootViewController: ContainerController(currentUser: user))
                 controller.modalPresentationStyle = .fullScreen
                 sself.present(controller, animated: true, completion: nil)
             }

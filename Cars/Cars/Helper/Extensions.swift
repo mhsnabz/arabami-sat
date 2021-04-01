@@ -82,7 +82,7 @@ extension UIViewController {
         view.endEditing(true)
     }
     func setNavigationBar(){
-        
+        self.view.backgroundColor = .white
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationController?.navigationBar.barTintColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: Utils.fontBold, size: Utils.normalSize)!]

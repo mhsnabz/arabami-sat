@@ -21,6 +21,16 @@
 		660F95612613CA350004753F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F95602613CA350004753F /* Extensions.swift */; };
 		660F95982613F11C0004753F /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F95972613F11C0004753F /* RegisterController.swift */; };
 		660F959D2613F3670004753F /* CompleteSignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F959C2613F3670004753F /* CompleteSignUpVC.swift */; };
+		6659AA2726150289006F8E44 /* QueriesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659AA2626150289006F8E44 /* QueriesVM.swift */; };
+		666DA75A26153DA700234FE8 /* DropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666DA75926153DA700234FE8 /* DropDownMenu.swift */; };
+		666DA76326153E9E00234FE8 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666DA76226153E9E00234FE8 /* Protocol.swift */; };
+		666DA76D2615C7A200234FE8 /* NewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666DA76C2615C7A200234FE8 /* NewPostController.swift */; };
+		666DA7752615C99600234FE8 /* CaptionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666DA7742615C99600234FE8 /* CaptionText.swift */; };
+		666DA77B2615E89700234FE8 /* ContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666DA77A2615E89700234FE8 /* ContainerController.swift */; };
+		666DA7832615E8AD00234FE8 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666DA7822615E8AD00234FE8 /* MenuController.swift */; };
+		666DA7892615E94800234FE8 /* SideMenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666DA7882615E94800234FE8 /* SideMenuHeaderView.swift */; };
+		666DA7922615EBFD00234FE8 /* MenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666DA7912615EBFD00234FE8 /* MenuOptions.swift */; };
+		666E33872615EEAA0058DFA4 /* SideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666E33862615EEAA0058DFA4 /* SideCell.swift */; };
 		66E6DB50261465B20069F272 /* TaskUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB4F261465B20069F272 /* TaskUser.swift */; };
 		66E6DB592614672F0069F272 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB582614672F0069F272 /* UserService.swift */; };
 		66E6DB9426147BD30069F272 /* UploadSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB9326147BD30069F272 /* UploadSerivce.swift */; };
@@ -71,6 +81,16 @@
 		660F95602613CA350004753F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		660F95972613F11C0004753F /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
 		660F959C2613F3670004753F /* CompleteSignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpVC.swift; sourceTree = "<group>"; };
+		6659AA2626150289006F8E44 /* QueriesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueriesVM.swift; sourceTree = "<group>"; };
+		666DA75926153DA700234FE8 /* DropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenu.swift; sourceTree = "<group>"; };
+		666DA76226153E9E00234FE8 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		666DA76C2615C7A200234FE8 /* NewPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostController.swift; sourceTree = "<group>"; };
+		666DA7742615C99600234FE8 /* CaptionText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionText.swift; sourceTree = "<group>"; };
+		666DA77A2615E89700234FE8 /* ContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerController.swift; sourceTree = "<group>"; };
+		666DA7822615E8AD00234FE8 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		666DA7882615E94800234FE8 /* SideMenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuHeaderView.swift; sourceTree = "<group>"; };
+		666DA7912615EBFD00234FE8 /* MenuOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptions.swift; sourceTree = "<group>"; };
+		666E33862615EEAA0058DFA4 /* SideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideCell.swift; sourceTree = "<group>"; };
 		66E6DB4F261465B20069F272 /* TaskUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskUser.swift; sourceTree = "<group>"; };
 		66E6DB582614672F0069F272 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		66E6DB9326147BD30069F272 /* UploadSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadSerivce.swift; sourceTree = "<group>"; };
@@ -151,11 +171,10 @@
 		660F94AA2613C3EC0004753F /* Cars */ = {
 			isa = PBXGroup;
 			children = (
-				66E6DBA826148C710069F272 /* Home */,
-				66E6DB57261467230069F272 /* Service */,
+				666DA76A2615C75500234FE8 /* Controller */,
+				666DA75726153D8B00234FE8 /* Views */,
 				66E6DB4E261465A50069F272 /* Model */,
 				660F95572613CA1C0004753F /* Helper */,
-				660F94EC2613C5BC0004753F /* Auth Controller */,
 				660F94AB2613C3EC0004753F /* AppDelegate.swift */,
 				660F94AD2613C3EC0004753F /* SceneDelegate.swift */,
 				660F94E42613C5700004753F /* SplashScreen.swift */,
@@ -199,15 +218,97 @@
 		660F95572613CA1C0004753F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				66E6DB57261467230069F272 /* Service */,
+				666DA76126153E9100234FE8 /* Protocol */,
 				660F95582613CA290004753F /* Utils.swift */,
 				660F95602613CA350004753F /* Extensions.swift */,
+				666DA7742615C99600234FE8 /* CaptionText.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		6659AA2526150278006F8E44 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6659AA2626150289006F8E44 /* QueriesVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		666DA75726153D8B00234FE8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				666DA7872615E92D00234FE8 /* Side Menu Views */,
+				666DA75826153D9100234FE8 /* Menu */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		666DA75826153D9100234FE8 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				666DA75926153DA700234FE8 /* DropDownMenu.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		666DA76126153E9100234FE8 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				666DA76226153E9E00234FE8 /* Protocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		666DA76A2615C75500234FE8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				666DA76B2615C78700234FE8 /* Post Controller */,
+				66E6DBA826148C710069F272 /* Home */,
+				660F94EC2613C5BC0004753F /* Auth Controller */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		666DA76B2615C78700234FE8 /* Post Controller */ = {
+			isa = PBXGroup;
+			children = (
+				666DA76C2615C7A200234FE8 /* NewPostController.swift */,
+			);
+			path = "Post Controller";
+			sourceTree = "<group>";
+		};
+		666DA7792615E88300234FE8 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				666DA77A2615E89700234FE8 /* ContainerController.swift */,
+				666DA7822615E8AD00234FE8 /* MenuController.swift */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		666DA7872615E92D00234FE8 /* Side Menu Views */ = {
+			isa = PBXGroup;
+			children = (
+				666DA7882615E94800234FE8 /* SideMenuHeaderView.swift */,
+				666E33862615EEAA0058DFA4 /* SideCell.swift */,
+			);
+			path = "Side Menu Views";
+			sourceTree = "<group>";
+		};
+		666DA7902615EBF100234FE8 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				666DA7912615EBFD00234FE8 /* MenuOptions.swift */,
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 		66E6DB4E261465A50069F272 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				666DA7902615EBF100234FE8 /* Enum */,
+				6659AA2526150278006F8E44 /* ViewModel */,
 				66E6DB4F261465B20069F272 /* TaskUser.swift */,
 				66E6DBA026148C4E0069F272 /* CurrentUser.swift */,
 			);
@@ -226,6 +327,7 @@
 		66E6DBA826148C710069F272 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				666DA7792615E88300234FE8 /* SideMenu */,
 				66E6DBA926148C7D0069F272 /* FeedVC.swift */,
 			);
 			path = Home;
@@ -516,19 +618,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				66E6DB9426147BD30069F272 /* UploadSerivce.swift in Sources */,
+				666DA7832615E8AD00234FE8 /* MenuController.swift in Sources */,
 				660F95592613CA290004753F /* Utils.swift in Sources */,
+				666DA76D2615C7A200234FE8 /* NewPostController.swift in Sources */,
 				660F959D2613F3670004753F /* CompleteSignUpVC.swift in Sources */,
+				666DA7892615E94800234FE8 /* SideMenuHeaderView.swift in Sources */,
 				660F95612613CA350004753F /* Extensions.swift in Sources */,
+				6659AA2726150289006F8E44 /* QueriesVM.swift in Sources */,
 				660F94E52613C5700004753F /* SplashScreen.swift in Sources */,
+				666DA7922615EBFD00234FE8 /* MenuOptions.swift in Sources */,
+				666DA7752615C99600234FE8 /* CaptionText.swift in Sources */,
 				660F95982613F11C0004753F /* RegisterController.swift in Sources */,
 				660F94EE2613C5D30004753F /* LoginController.swift in Sources */,
 				66E6DB592614672F0069F272 /* UserService.swift in Sources */,
+				666DA77B2615E89700234FE8 /* ContainerController.swift in Sources */,
 				66E6DBAA26148C7D0069F272 /* FeedVC.swift in Sources */,
 				660F94AC2613C3EC0004753F /* AppDelegate.swift in Sources */,
 				660F94AE2613C3EC0004753F /* SceneDelegate.swift in Sources */,
 				66E6DBA126148C4E0069F272 /* CurrentUser.swift in Sources */,
 				66E6DB9C26147C590069F272 /* Enums.swift in Sources */,
+				666DA76326153E9E00234FE8 /* Protocol.swift in Sources */,
 				66E6DB50261465B20069F272 /* TaskUser.swift in Sources */,
+				666E33872615EEAA0058DFA4 /* SideCell.swift in Sources */,
+				666DA75A26153DA700234FE8 /* DropDownMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
