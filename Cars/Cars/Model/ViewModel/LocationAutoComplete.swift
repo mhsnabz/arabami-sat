@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 class LocaitonAutoComplete : NSObject {
     //MARK:-varibales
+    weak var delegate : AutoCompleteDelegate?
     var maxCount : Int = 5
     var searchResult : [MKMapItem]?{
         
@@ -112,6 +113,16 @@ extension LocaitonAutoComplete  : UITableViewDelegate, UITableViewDataSource{
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let result = searchResult else{
+            return
+        }
+        let item = result[indexPath.row]
+        delegate?.selectAnnotation(selectAnnotation: item)
+        self.delegate?.animateCenterMapButton( )
+        delegate?.dismisSearchBar(isSearching: false)
+        delegate?.ZoomInPlace(placemark: item.placemark)
+    }
     
 }
 

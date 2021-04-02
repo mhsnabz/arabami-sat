@@ -8,9 +8,47 @@
 import UIKit
 import MapKit
 import CoreLocation
-class LocationPicker: UIViewController {
-
+class LocationPicker: UIViewController, AutoCompleteDelegate {
+    func ZoomInPlace(placemark: MKPlacemark) {
+        selectedPin = placemark
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality,
+           let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city) / \(state)"
+            annotation.title = placemark.name
+        }
+        mapView.addAnnotation(annotation)
+        let coordinateReigon = MKCoordinateRegion(center: placemark.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
+        mapView.setRegion(coordinateReigon, animated: true)
+        search(shouldShow: false)
+    }
+    
+    func animateCenterMapButton() {
+        
+    }
+    
+    func dismisSearchBar(isSearching: Bool) {
+        self.isSearching  = isSearching
+    }
+    
+    func handleSearch(with SearchText: String) {
+        
+    }
+    
+    func addPolyLine(destinationMapItem: MKMapItem) {
+        
+    }
+    
+    func selectAnnotation(selectAnnotation mapItem: MKMapItem) {
+        
+    }
+    
+    
     //MARK:-variables
+    var selectedPin:MKPlacemark? = nil
     var currentUser : CurrentUser
     var mapView : MKMapView!
     var isMessageLocation : Bool?
@@ -19,6 +57,7 @@ class LocationPicker: UIViewController {
     var locationManager : CLLocationManager?
     weak var route : MKRoute?
     let searchBar = UISearchBar()
+    var pickLocationDialog = PickLocationDialog()
     var isSearching : Bool = false{
         didSet{
             if isSearching{
@@ -49,6 +88,8 @@ class LocationPicker: UIViewController {
         enableLocaitonMenager()
         configureViews()
         configureSearchBar()
+        autoComplete.delegate = self
+        pickLocationDialog.delegate = self
         
     }
     init(currentUser : CurrentUser) {
@@ -70,23 +111,23 @@ class LocationPicker: UIViewController {
         showSearchBar(shouldShow: true)
     }
     
-     func showSearchBar(shouldShow : Bool){
-         if shouldShow {
-             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchBarClick))
-         }else{
-             navigationItem.rightBarButtonItem = nil
-             
-         }
-     }
-     func search( shouldShow : Bool ){
-         showSearchBar(shouldShow: !shouldShow)
-         searchBar.showsCancelButton = shouldShow
-         navigationItem.titleView = shouldShow ? searchBar : nil
-         isSearching = shouldShow
+    func showSearchBar(shouldShow : Bool){
+        if shouldShow {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchBarClick))
+        }else{
+            navigationItem.rightBarButtonItem = nil
+            
+        }
+    }
+    func search( shouldShow : Bool ){
+        showSearchBar(shouldShow: !shouldShow)
+        searchBar.showsCancelButton = shouldShow
+        navigationItem.titleView = shouldShow ? searchBar : nil
+        isSearching = shouldShow
         if shouldShow {
             autoComplete.showSuggestion()
         }
-     }
+    }
     fileprivate func configureViews(){
         setNavigationBar()
         navigationItem.title = "Pick Locaiton"
@@ -114,7 +155,7 @@ class LocationPicker: UIViewController {
         navigationItem.rightBarButtonItem = nil
         searchBar.becomeFirstResponder()
         searchBar.placeholder = "Search Location"
-     
+        
         
     }
 }
@@ -145,6 +186,7 @@ extension LocationPicker : CLLocationManagerDelegate {
         }
     }
 }
+
 //MARK:-MKMapViewDelegate
 extension LocationPicker : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -156,6 +198,17 @@ extension LocationPicker : MKMapViewDelegate {
             return lineRenderer
         }
         return MKOverlayRenderer()
+    }
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let annotion  = view.annotation else { return }
+        let placemark = MKPlacemark(coordinate: annotion.coordinate, addressDictionary: nil)
+        if let title = annotion.title , let subTitle = annotion.subtitle {
+            pickLocationDialog.show(placeMark: placemark, selectedPlace: title ?? "", selectedAdress: subTitle ?? "")
+        }
+        
+    }
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        pickLocationDialog.handleDismiss()
     }
 }
 
@@ -182,9 +235,9 @@ extension LocationPicker{
                     
                 })
             }
-           
             
-           
+            
+            
         }
     }
     func searchBy(natureLanguage : String , region : MKCoordinateRegion , coordinate : CLLocationCoordinate2D , completion : @escaping(_ reposponse : MKLocalSearch.Response? , _ Error : NSError?) ->Void){
@@ -193,7 +246,7 @@ extension LocationPicker{
         request.region = region
         
         let search = MKLocalSearch(request: request)
-       
+        
         search.start { (response, err) in
             guard let response = response else {
                 completion(nil, err as NSError? )
@@ -227,7 +280,18 @@ extension LocationPicker : UISearchBarDelegate {
         {
             isSearching = true
             loadAnnotationByQuery(query: searchText)
-           
+            
         }
     }
+}
+extension LocationPicker : PickLocationDelegate{
+    func didSelect(placeMark: MKPlacemark) {
+        
+    }
+    
+    func dismissDialog() {
+        
+    }
+    
+    
 }
