@@ -5,7 +5,7 @@
 //  Created by mahsun abuzeyitoğlu on 1.04.2021.
 //
 
-import Foundation
+import FirebaseFirestore
 protocol QueriesDelegate : class {
     func didSelect(option : QueriesOptions)
 }
@@ -17,4 +17,7 @@ protocol PostTopBarSelectedIndex : class {
 }
 protocol DeleteImage : class  {
     func deleteImage( for cell : PostImageCell)
+}
+protocol GetCoordiant : class {
+    func getCoordinat(locaiton : GeoPoint)
 }

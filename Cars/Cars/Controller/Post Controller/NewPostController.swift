@@ -10,14 +10,14 @@ import SDWebImage
 import ImagePicker
 import Lightbox
 import Gallery
-class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxControllerDismissalDelegate, GalleryControllerDelegate {
-
-    
+import CoreLocation
+class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxControllerDismissalDelegate, GalleryControllerDelegate, addImage {
     func getIndex(indexItem: Int) {
         print(indexItem)
     }
     
     //MARK:-variables
+    var locationManager : CLLocationManager!
     var currentUser : CurrentUser
     var heigth : CGFloat = 0.0
     var imageList = [Data]()
@@ -108,20 +108,7 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         
         return lbl
     }()
-    let addImages : UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setImage(#imageLiteral(resourceName: "new_post").withRenderingMode(.alwaysOriginal), for: .normal)
-        btn.addTarget(self, action: #selector(_addImages), for: .touchUpInside)
-        return btn
-    }()
-    let imagesLabel : UILabel = {
-       let lbl = UILabel()
-        lbl.text = "Add Images"
-        lbl.font = UIFont(name: Utils.font, size: Utils.normalSize)
-        lbl.textColor = .darkGray
-        
-        return lbl
-    }()
+  
     let addLocation : UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(#imageLiteral(resourceName: "new_post").withRenderingMode(.alwaysOriginal), for: .normal)
@@ -161,6 +148,16 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
     }
     
     //MARK:-imagePicker
+    func addImage() {
+        Config.Camera.recordLocation = false
+        Config.tabsToShow = [.imageTab]
+        gallery = GalleryController()
+        gallery.delegate = self
+        gallery.modalPresentationStyle = .fullScreen
+        present(gallery, animated: true, completion: nil)
+    }
+    
+    
     func lightboxControllerWillDismiss(_ controller: LightboxController) {
         controller.dismiss(animated: true, completion: nil)
     }
@@ -221,7 +218,7 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
    
     
     fileprivate func configurePriceStack() {
-        let priceStack = UIStackView(arrangedSubviews: [addPrice,priceLabel,addImages,imagesLabel,addLocation,locationLabel])
+        let priceStack = UIStackView(arrangedSubviews: [addPrice,priceLabel,addLocation,locationLabel])
         priceStack.alignment = .center
         priceStack.axis = .horizontal
         priceStack.spacing = 6
@@ -302,16 +299,12 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         
     }
     @objc func _addLocaiton(){
-        
+        let vc = LocationPicker(currentUser: currentUser)
+        vc.locationManager = locationManager
+        self.navigationController?.pushViewController(vc, animated: true)
+       
     }
-    @objc func _addImages(){
-        Config.Camera.recordLocation = false
-        Config.tabsToShow = [.imageTab]
-        gallery = GalleryController()
-        gallery.delegate = self
-        gallery.modalPresentationStyle = .fullScreen
-        present(gallery, animated: true, completion: nil)
-    }
+  
 }
 
 
@@ -326,12 +319,16 @@ extension NewPostController : UITextViewDelegate {
         if textView.contentSize.height >= 150
         {
             textView.isScrollEnabled = true
+            collecitonView.frame = CGRect(x: 0, y: 150, width: view.frame.width-150, height: view.frame.height)
+            collecitonView.reloadData()
         }
         else
         {
             textView.frame.size.height = textView.contentSize.height
             heigth = textView.contentSize.height
-            textView.isScrollEnabled = false // textView.isScrollEnabled = false for swift 4.0
+            textView.isScrollEnabled = false
+            collecitonView.frame = CGRect(x: 0, y: size.width, width: view.frame.width-size.width, height: view.frame.height)
+            collecitonView.reloadData()
             
         }
         textView.constraints.forEach { (constraint) in
@@ -348,7 +345,7 @@ extension NewPostController : UITextViewDelegate {
                 else
                 {
                     textView.frame.size.height = textView.contentSize.height
-                    textView.isScrollEnabled = true // textView.isScrollEnabled = false for swift 4.0
+                    textView.isScrollEnabled = true
                     constraint.constant = estimatedSize.height
                     heigth = estimatedSize.height
                 }
@@ -365,6 +362,7 @@ extension NewPostController : UICollectionViewDelegate , UICollectionViewDataSou
         if indexPath.item == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "images_cell", for: indexPath) as! ImagesCollectionViewCell
             cell.imagesList = imageList
+            cell.delegate = self
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "futures_cell", for: indexPath) as!

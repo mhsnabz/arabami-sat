@@ -7,9 +7,14 @@
 
 import UIKit
 private let imageCell = "imageCell"
-class ImagesCollectionViewCell: UICollectionViewCell {
+class ImagesCollectionViewCell: UICollectionViewCell, addImage  {
+    func addImage() {
+        delegate?.addImage()
+    }
+    
 
     var collectionview: UICollectionView!
+    weak var delegate : addImage?
     var imagesList : [Data]?{
         didSet{
             collectionview.reloadData()
@@ -37,19 +42,39 @@ class ImagesCollectionViewCell: UICollectionViewCell {
         collectionview.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, rigth: rightAnchor, marginTop: 0, marginLeft: 0, marginBottom: 0, marginRigth: 0, width: 0, heigth: 0)
         collectionview.register(PostImageCell.self, forCellWithReuseIdentifier: imageCell)
     }
-}
-extension ImagesCollectionViewCell : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate , DeleteImage{
-    func deleteImage(for cell: PostImageCell) {
-        
+    func setEmptyMessage(_ message: String) {
+        let emptyView = EmptyView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        emptyView.infoText = message
+        emptyView.addImage = self
+        collectionview.backgroundView = emptyView;
+    }
+    func restore() {
+        collectionview.backgroundView = nil
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if  imagesList?.count == 0 {
-            collectionview.setEmptyMessage("Add Images")
-        }else{
-            collectionview.restore()
+}
+extension ImagesCollectionViewCell : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate , DeleteImage {
+    
+   
+    func deleteImage(for cell: PostImageCell) {
+        print("DEBUG:: deleted image")
+        if let index =  self.collectionview.indexPath(for: cell){
+            imagesList?.remove(at: index.row)
+            collectionview.reloadData()
         }
-        return imagesList?.count ?? 0
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+      
+        guard let count = imagesList?.count else {
+            return 0
+        }
+        if count == 0 {
+            setEmptyMessage("Add Image")
+        }else if count > 0  {
+            restore()
+        }
+        return count
+      
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
