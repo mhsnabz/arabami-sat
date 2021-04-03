@@ -29,10 +29,21 @@ protocol AutoCompleteDelegate : class {
     
    
 }
-protocol PickLocationDelegate : NSObject {
+protocol PickLocationDelegate : class {
     func didSelect(placeMark : MKPlacemark , placeName : String)
     func dismissDialog()
 }
 protocol SendLocationDelegate : class{
     func getLocation(geoPoint : GeoPoint , locaitonName : String)
+}
+protocol FuturesItemDelegate : class {
+    func addBrand()
+    func addKm()
+    func addModel()
+    func addYear()
+}
+protocol PopUpNumberDelegate : class {
+    func handleDismissal()
+    func addPrice(_ target : String?)
+    func addYear(_ target : String?)
 }

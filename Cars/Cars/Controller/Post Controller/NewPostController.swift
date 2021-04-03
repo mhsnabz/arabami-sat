@@ -30,6 +30,29 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
     var gallery: GalleryController!
     weak var getLocation : SendLocationDelegate?
     var geoPoint : GeoPoint?
+  
+    var car : Car?{
+        didSet{
+            if let price = car?.price{
+                priceText = price
+                
+            }
+        }
+    }
+    lazy var popUpView : PopUpViewController = {
+        let view = PopUpViewController()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 5
+        view.delegate = self
+        return view
+    }()
+    let visualEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let view = UIVisualEffectView(effect: blurEffect)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     var priceText : String?{
         didSet{
             guard let text = priceText else{
@@ -216,7 +239,46 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         
         gallery.present(lightbox, animated: true, completion: nil)
     }
+    
+    
     //MARK:-handlers
+    
+    func handleShowPopUp(target : String) {
+        view.addSubview(visualEffectView)
+        visualEffectView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        visualEffectView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        visualEffectView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        visualEffectView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        
+        visualEffectView.alpha = 0
+        
+        
+        view.addSubview(popUpView)
+        popUpView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80).isActive = true
+        popUpView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        popUpView.heightAnchor.constraint(equalToConstant: view.frame.width - 200).isActive = true
+        popUpView.widthAnchor.constraint(equalToConstant: view.frame.width - 44).isActive = true
+        popUpView.target = target
+        
+        UIView.animate(withDuration: 0.5) {
+            self.popUpView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            self.visualEffectView.alpha = 1
+            self.popUpView.alpha = 1
+            self.popUpView.transform = CGAffineTransform.identity
+            
+        }
+        return
+    }
+    func _handleDismissal() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.visualEffectView.alpha = 0
+            self.popUpView.alpha = 0
+            self.popUpView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        }) { (_) in
+            self.popUpView.removeFromSuperview()
+            print("Did remove pop up window..")
+        }
+    }
     private func setToolbar(){
         setNavigationBar()
         navigationItem.title = "New Post"
@@ -306,7 +368,7 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         
     }
     @objc func _addPrice(){
-        
+        handleShowPopUp(target: "addPrice")
     }
     @objc func _addLocaiton(){
         if locaitonText != nil {
@@ -386,7 +448,9 @@ extension NewPostController : UICollectionViewDelegate , UICollectionViewDataSou
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "futures_cell", for: indexPath) as!
             FuturesCell
-            cell.backgroundColor = .black
+            cell.backgroundColor = .white
+            cell.delegate = self
+            cell.car = car
             return cell
         }
     }
@@ -397,3 +461,45 @@ extension NewPostController : UICollectionViewDelegate , UICollectionViewDataSou
     
 }
 
+extension NewPostController : FuturesItemDelegate{
+    func addBrand() {
+        print("DEBUG :: addBrand")
+    }
+    
+    func addKm() {
+        
+    }
+    
+    func addModel() {
+        print("DEBUG :: addModel")
+    }
+    
+    func addYear() {
+        handleShowPopUp(target: "addYear")
+    }
+    
+    
+}
+extension NewPostController : PopUpNumberDelegate {
+    func handleDismissal() {
+        _handleDismissal()
+    }
+    
+    func addPrice(_ target: String?) {
+        print("DEBUG:: \(target)")
+        car?.price = target
+        priceText = target
+        self.collecitonView.reloadData()
+        _handleDismissal()
+
+    }
+    
+    func addYear(_ target: String?) {
+        print("DEBUG:: \(target)")
+   
+        self.collecitonView.reloadData()
+        _handleDismissal()
+    }
+    
+    
+}

@@ -40,6 +40,8 @@
 		666E33B726176A270058DFA4 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666E33B626176A270058DFA4 /* LocationPicker.swift */; };
 		666E33EC261775CD0058DFA4 /* LocationAutoComplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666E33EB261775CD0058DFA4 /* LocationAutoComplete.swift */; };
 		666E33F12617A4840058DFA4 /* PickLocationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666E33F02617A4840058DFA4 /* PickLocationDialog.swift */; };
+		66D1C3692618847500C8F19E /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D1C3682618847500C8F19E /* Car.swift */; };
+		66DC0F5B2618AC4A0017CBC2 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DC0F5A2618AC4A0017CBC2 /* PopUpViewController.swift */; };
 		66E6DB50261465B20069F272 /* TaskUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB4F261465B20069F272 /* TaskUser.swift */; };
 		66E6DB592614672F0069F272 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB582614672F0069F272 /* UserService.swift */; };
 		66E6DB9426147BD30069F272 /* UploadSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB9326147BD30069F272 /* UploadSerivce.swift */; };
@@ -109,6 +111,8 @@
 		666E33B626176A270058DFA4 /* LocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
 		666E33EB261775CD0058DFA4 /* LocationAutoComplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAutoComplete.swift; sourceTree = "<group>"; };
 		666E33F02617A4840058DFA4 /* PickLocationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickLocationDialog.swift; sourceTree = "<group>"; };
+		66D1C3682618847500C8F19E /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
+		66DC0F5A2618AC4A0017CBC2 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		66E6DB4F261465B20069F272 /* TaskUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskUser.swift; sourceTree = "<group>"; };
 		66E6DB582614672F0069F272 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		66E6DB9326147BD30069F272 /* UploadSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadSerivce.swift; sourceTree = "<group>"; };
@@ -252,6 +256,7 @@
 				6659AA2626150289006F8E44 /* QueriesVM.swift */,
 				666E33EB261775CD0058DFA4 /* LocationAutoComplete.swift */,
 				666E33F02617A4840058DFA4 /* PickLocationDialog.swift */,
+				66DC0F5A2618AC4A0017CBC2 /* PopUpViewController.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -371,6 +376,7 @@
 				6659AA2526150278006F8E44 /* ViewModel */,
 				66E6DB4F261465B20069F272 /* TaskUser.swift */,
 				66E6DBA026148C4E0069F272 /* CurrentUser.swift */,
+				66D1C3682618847500C8F19E /* Car.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -705,8 +711,10 @@
 				660F94AE2613C3EC0004753F /* SceneDelegate.swift in Sources */,
 				66E6DBA126148C4E0069F272 /* CurrentUser.swift in Sources */,
 				66E6DB9C26147C590069F272 /* Enums.swift in Sources */,
+				66DC0F5B2618AC4A0017CBC2 /* PopUpViewController.swift in Sources */,
 				666DA76326153E9E00234FE8 /* Protocol.swift in Sources */,
 				666E33B726176A270058DFA4 /* LocationPicker.swift in Sources */,
+				66D1C3692618847500C8F19E /* Car.swift in Sources */,
 				66E6DB50261465B20069F272 /* TaskUser.swift in Sources */,
 				666E33872615EEAA0058DFA4 /* SideCell.swift in Sources */,
 				666DA75A26153DA700234FE8 /* DropDownMenu.swift in Sources */,
