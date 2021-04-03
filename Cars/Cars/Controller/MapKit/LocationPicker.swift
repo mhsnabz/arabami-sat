@@ -8,44 +8,9 @@
 import UIKit
 import MapKit
 import CoreLocation
-class LocationPicker: UIViewController, AutoCompleteDelegate {
-    func ZoomInPlace(placemark: MKPlacemark) {
-        selectedPin = placemark
-        mapView.removeAnnotations(mapView.annotations)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = placemark.coordinate
-        annotation.title = placemark.name
-        if let city = placemark.locality,
-           let state = placemark.administrativeArea {
-            annotation.subtitle = "\(city) / \(state)"
-            annotation.title = placemark.name
-        }
-        mapView.addAnnotation(annotation)
-        let coordinateReigon = MKCoordinateRegion(center: placemark.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
-        mapView.setRegion(coordinateReigon, animated: true)
-        search(shouldShow: false)
-    }
-    
-    func animateCenterMapButton() {
-        
-    }
-    
-    func dismisSearchBar(isSearching: Bool) {
-        self.isSearching  = isSearching
-    }
-    
-    func handleSearch(with SearchText: String) {
-        
-    }
-    
-    func addPolyLine(destinationMapItem: MKMapItem) {
-        
-    }
-    
-    func selectAnnotation(selectAnnotation mapItem: MKMapItem) {
-        
-    }
-    
+import FirebaseFirestore
+class LocationPicker: UIViewController  {
+   
     
     //MARK:-variables
     var selectedPin:MKPlacemark? = nil
@@ -55,9 +20,11 @@ class LocationPicker: UIViewController, AutoCompleteDelegate {
     weak var coordinatDelegate : GetCoordiant?
     weak var choosenAnnotation : MKAnnotation?
     var locationManager : CLLocationManager?
+    weak var sendLocationDelegate : SendLocationDelegate?
     weak var route : MKRoute?
     let searchBar = UISearchBar()
     var pickLocationDialog = PickLocationDialog()
+    
     var isSearching : Bool = false{
         didSet{
             if isSearching{
@@ -285,13 +252,51 @@ extension LocationPicker : UISearchBarDelegate {
     }
 }
 extension LocationPicker : PickLocationDelegate{
-    func didSelect(placeMark: MKPlacemark) {
+    func didSelect(placeMark: MKPlacemark , placeName : String) {
+   
+            let geoPoint = GeoPoint(latitude: placeMark.coordinate.latitude, longitude: placeMark.coordinate.longitude)
+            print("DEBUG :: placeName \(placeName)")
+        if let delegate = sendLocationDelegate {
+            delegate.getLocation(geoPoint: geoPoint , locaitonName: placeName)
+            self.pickLocationDialog.handleDismiss()
+            self.navigationController?.popViewController(animated: false)
+        }
+            
         
     }
     
     func dismissDialog() {
-        
+        mapView.annotations.forEach { (annotion) in
+            if let annotion = annotion as? MKPointAnnotation{
+                mapView.removeAnnotation(annotion)
+            }
+        }
     }
     
+    
+}
+extension LocationPicker : AutoCompleteDelegate {
+    func dismisSearchBar(isSearching: Bool) {
+        self.isSearching = isSearching
+    }
+    
+    func ZoomInPlace(placemark: MKPlacemark) {
+        selectedPin = placemark
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality,
+           let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city) / \(state)"
+            annotation.title = placemark.name
+        }
+        mapView.addAnnotation(annotation)
+        let coordinateReigon = MKCoordinateRegion(center: placemark.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
+        mapView.setRegion(coordinateReigon, animated: true)
+        search(shouldShow: false)
+    }
+    
+  
     
 }

@@ -23,14 +23,16 @@ protocol GetCoordiant : class {
     func getCoordinat(locaiton : GeoPoint)
 }
 protocol AutoCompleteDelegate : class {
-    func animateCenterMapButton()
+   
     func ZoomInPlace(placemark:MKPlacemark)
     func dismisSearchBar(isSearching : Bool)
-    func handleSearch(with SearchText : String)
-    func addPolyLine(destinationMapItem : MKMapItem)
-    func selectAnnotation(selectAnnotation mapItem : MKMapItem)
+    
+   
 }
-protocol PickLocationDelegate : class {
-    func didSelect(placeMark : MKPlacemark)
+protocol PickLocationDelegate : NSObject {
+    func didSelect(placeMark : MKPlacemark , placeName : String)
     func dismissDialog()
+}
+protocol SendLocationDelegate : class{
+    func getLocation(geoPoint : GeoPoint , locaitonName : String)
 }

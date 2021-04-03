@@ -108,6 +108,9 @@ class PickLocationDialog : NSObject{
         self.selectedAdress = selectedAdress
         self.selectedPlaceName = selectedPlace
         guard let window = UIApplication.shared.windows.first(where: { ($0.isKeyWindow)}) else { return }
+        self.window = window
+        window.addSubview(blackView)
+        blackView.frame = window.frame
         window.addSubview(dialogView)
         dialogView.anchor(top: nil, left: window.leftAnchor, bottom: window.safeAreaLayoutGuide.bottomAnchor, rigth: window.rightAnchor, marginTop: 0, marginLeft: 0, marginBottom: 0, marginRigth: 0, width: 0, heigth: 200)
         UIView.animate(withDuration: 0.5) {
@@ -122,16 +125,19 @@ class PickLocationDialog : NSObject{
     
     //MARK:--selector
     @objc  func handleDismiss(){
-        UIView.animate(withDuration: 0.5) {
+        
+        UIView.animate(withDuration: 0.5) { [self] in
            
             self.blackView.alpha = 0
             self.dialogView.frame.origin.y += 200
-          
+            dialogView.removeFromSuperview()
+            window?.removeFromSuperview()
         }
     }
     @objc func selectLocation(){
         guard let item = item else { return }
-        delegate?.didSelect(placeMark: item)
-        handleDismiss()
+        
+        delegate?.didSelect(placeMark: item, placeName: selectedAdress ?? "noInfo")
+      
     }
 }

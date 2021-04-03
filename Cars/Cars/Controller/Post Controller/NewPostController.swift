@@ -11,7 +11,13 @@ import ImagePicker
 import Lightbox
 import Gallery
 import CoreLocation
-class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxControllerDismissalDelegate, GalleryControllerDelegate, addImage {
+import FirebaseFirestore
+class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxControllerDismissalDelegate, GalleryControllerDelegate, addImage, SendLocationDelegate {
+    func getLocation(geoPoint: GeoPoint, locaitonName: String) {
+        self.geoPoint = geoPoint
+        self.locaitonText = locaitonName
+    }
+    
     func getIndex(indexItem: Int) {
         print(indexItem)
     }
@@ -22,6 +28,8 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
     var heigth : CGFloat = 0.0
     var imageList = [Data]()
     var gallery: GalleryController!
+    weak var getLocation : SendLocationDelegate?
+    var geoPoint : GeoPoint?
     var priceText : String?{
         didSet{
             guard let text = priceText else{
@@ -38,8 +46,9 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
                 locationLabel.text = "Add Locaiton"
                 return
             }
-            locationLabel.textColor = .red
+            
             locationLabel.text = text
+            addLocation.setImage(#imageLiteral(resourceName: "cancel").withRenderingMode(.alwaysOriginal), for: .normal)
         }
     }
     
@@ -137,6 +146,7 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         super.viewDidLoad()
         setToolbar()
         configureCollectionView()
+        getLocation = self
     }
     init(currentUser : CurrentUser) {
         self.currentUser = currentUser
@@ -299,9 +309,18 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         
     }
     @objc func _addLocaiton(){
-        let vc = LocationPicker(currentUser: currentUser)
-        vc.locationManager = locationManager
-        self.navigationController?.pushViewController(vc, animated: true)
+        if locaitonText != nil {
+            self.locaitonText = nil
+            self.geoPoint = nil
+            self.addLocation.setImage(#imageLiteral(resourceName: "new_post").withRenderingMode(.alwaysOriginal), for: .normal)
+        }else{
+            getLocation = self
+            let vc = LocationPicker(currentUser: currentUser)
+            vc.locationManager = locationManager
+            vc.sendLocationDelegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+       
        
     }
   
@@ -377,3 +396,4 @@ extension NewPostController : UICollectionViewDelegate , UICollectionViewDataSou
     
     
 }
+

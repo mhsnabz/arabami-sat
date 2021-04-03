@@ -10,11 +10,12 @@ import MapKit
 class LocaitonAutoComplete : NSObject {
     //MARK:-varibales
     weak var delegate : AutoCompleteDelegate?
+    
     var maxCount : Int = 5
     var searchResult : [MKMapItem]?{
         
         didSet{
-            print("debug :: result \(searchResult)")
+            
            tableView.reloadData()
             guard let window = UIApplication.shared.windows.first(where: { ($0.isKeyWindow)}) else { return }
             if let result = searchResult {
@@ -118,8 +119,7 @@ extension LocaitonAutoComplete  : UITableViewDelegate, UITableViewDataSource{
             return
         }
         let item = result[indexPath.row]
-        delegate?.selectAnnotation(selectAnnotation: item)
-        self.delegate?.animateCenterMapButton( )
+       
         delegate?.dismisSearchBar(isSearching: false)
         delegate?.ZoomInPlace(placemark: item.placemark)
     }
