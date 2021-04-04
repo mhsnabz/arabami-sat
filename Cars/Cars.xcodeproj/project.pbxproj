@@ -44,6 +44,7 @@
 		66DC0F5B2618AC4A0017CBC2 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DC0F5A2618AC4A0017CBC2 /* PopUpViewController.swift */; };
 		66DC0F952619D4B40017CBC2 /* ChooseBrandController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DC0F942619D4B40017CBC2 /* ChooseBrandController.swift */; };
 		66DC0F9A2619FDD60017CBC2 /* AddYearController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DC0F992619FDD60017CBC2 /* AddYearController.swift */; };
+		66DC0FA2261A44420017CBC2 /* AddKmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DC0FA1261A44420017CBC2 /* AddKmController.swift */; };
 		66E6DB50261465B20069F272 /* TaskUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB4F261465B20069F272 /* TaskUser.swift */; };
 		66E6DB592614672F0069F272 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB582614672F0069F272 /* UserService.swift */; };
 		66E6DB9426147BD30069F272 /* UploadSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E6DB9326147BD30069F272 /* UploadSerivce.swift */; };
@@ -117,6 +118,7 @@
 		66DC0F5A2618AC4A0017CBC2 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		66DC0F942619D4B40017CBC2 /* ChooseBrandController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBrandController.swift; sourceTree = "<group>"; };
 		66DC0F992619FDD60017CBC2 /* AddYearController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddYearController.swift; sourceTree = "<group>"; };
+		66DC0FA1261A44420017CBC2 /* AddKmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKmController.swift; sourceTree = "<group>"; };
 		66E6DB4F261465B20069F272 /* TaskUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskUser.swift; sourceTree = "<group>"; };
 		66E6DB582614672F0069F272 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		66E6DB9326147BD30069F272 /* UploadSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadSerivce.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				666DA76C2615C7A200234FE8 /* NewPostController.swift */,
 				66DC0F942619D4B40017CBC2 /* ChooseBrandController.swift */,
 				66DC0F992619FDD60017CBC2 /* AddYearController.swift */,
+				66DC0FA1261A44420017CBC2 /* AddKmController.swift */,
 			);
 			path = "Post Controller";
 			sourceTree = "<group>";
@@ -699,6 +702,7 @@
 				666DA7892615E94800234FE8 /* SideMenuHeaderView.swift in Sources */,
 				66DC0F9A2619FDD60017CBC2 /* AddYearController.swift in Sources */,
 				660F95612613CA350004753F /* Extensions.swift in Sources */,
+				66DC0FA2261A44420017CBC2 /* AddKmController.swift in Sources */,
 				666E339A261630B30058DFA4 /* FuturesCell.swift in Sources */,
 				6659AA2726150289006F8E44 /* QueriesVM.swift in Sources */,
 				666E33A9261755D40058DFA4 /* PermissionConroller.swift in Sources */,

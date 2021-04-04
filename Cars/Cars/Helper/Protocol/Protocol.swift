@@ -51,6 +51,7 @@ protocol FuturesItemDelegate : class {
 protocol PopUpYearDelegate : class {
     func handleDismissal(_ target : String?)
     func addYear(_ target : String?)
+    func addKm(_target : String)
 }
 
 protocol PopUpNumberDelegate : class {

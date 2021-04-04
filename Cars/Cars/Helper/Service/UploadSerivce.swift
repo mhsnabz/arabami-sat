@@ -88,4 +88,92 @@ class UploadSerivce {
             }
         }
      }
+    
+    func saveToStorageDatas(postDate : String , currentUser : CurrentUser , datas : [Data] , completion : @escaping([String]) -> Void){
+        var uploadedImageUrlsArray = [String]()
+        var uploadCount = 0
+        let imagesCount = datas.count
+        let semaphore = DispatchSemaphore(value: 1)
+        for data in 0..<(datas.count){
+            Utils.waitProgress(msg: "\(imagesCount) Images Will Uploading")
+            DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 5){
+                semaphore.wait()
+                self.uploadDataBase(date: postDate, currentUser: currentUser, datas[data], uploadCount, imagesCount) { (url) in
+                    uploadedImageUrlsArray.append(url)
+                    uploadCount += 1
+                    print("DEBUG:: Number of images successfully uploaded: \(uploadCount)")
+                    Utils.waitProgress(msg: "\(uploadCount). Image Uploaded")
+                    if uploadCount == imagesCount {
+                        Utils.succesProgress(msg: "All Images Uploaded Successfully")
+                        completion(uploadedImageUrlsArray)
+                        semaphore.signal()
+                    }else{
+                        semaphore.signal()
+                    }
+                }
+            }
+        }
+    }
+    
+    func uploadDataBase(date : String ,currentUser : CurrentUser ,_ data : Data ,_ uploadCount : Int,_ imagesCount : Int, completion : @escaping(String) ->Void){
+        let metaDataForData = StorageMetadata()
+        let dataName = Date().timeIntervalSince1970.description
+        metaDataForData.contentType = "image/jpeg"
+        let ref = Storage.storage().reference().child("feed-post")
+            .child(currentUser.uid!)
+            .child(date)
+            .child(dataName + ".jpg")
+        uploadTask = ref.putData(data, metadata: metaDataForData, completion: { (metaData, err) in
+            if let err = err {
+                print("DEBUG:: uploadDataBase \(err.localizedDescription)")
+            }else{
+                ref.downloadURL { (url, err) in
+                    if let err = err {
+                        print("DEBUG:: downloadURL \(err.localizedDescription)")
+                    }else{
+                        guard let url = url?.absoluteString else{
+                            return
+                        }
+                        completion(url)
+                    }
+                }
+            }
+        })
+        uploadFiles(uploadTask: uploadTask!, count: uploadCount, data: data)
+    }
+    func uploadFiles(uploadTask : StorageUploadTask , count : Int , data : Data) {
+        uploadTask.observe(.progress) {  snapshot in
+            print(snapshot.progress as Any) //
+            
+            let percentComplete = 100.0 * Float(snapshot.progress!.completedUnitCount)
+                / Float(snapshot.progress!.totalUnitCount)
+            print("upload : \(percentComplete )")
+            SVProgressHUD.showProgress(percentComplete / 100, status: "\(count + 1). Image %\(Int(percentComplete))")
+        }
+        uploadTask.observe(.success) { (snap) in
+            
+            switch (snap.status) {
+            
+            case .unknown:
+                break
+            case .resume:
+                break
+            case .progress:
+                
+                break
+            case .pause:
+                break
+            case .success:
+                
+                break
+                
+            case .failure:
+                break
+            @unknown default:
+                break
+            }
+            
+        }
+        
+    }
 }

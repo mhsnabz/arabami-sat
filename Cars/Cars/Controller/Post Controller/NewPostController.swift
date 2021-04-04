@@ -65,7 +65,7 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
                 return
             }
 
-            priceLabel.text = text
+            priceLabel.text = "\(text) TL"
             addPrice.setImage(#imageLiteral(resourceName: "cancel").withRenderingMode(.alwaysOriginal), for: .normal)
         }
     }
@@ -307,10 +307,20 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
     }
     private func setToolbar(){
         setNavigationBar()
-        navigationItem.title = "New Post"
-        let rigthBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "new_post").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(uploadPost))
-        navigationController?.navigationItem.rightBarButtonItem = rigthBarButton
+        navigationItem.title = "Set New Post"
+       
         hideKeyboardWhenTappedAround()
+        let postItButton = UIButton(type: .system)
+        postItButton.backgroundColor = .mainColor()
+        postItButton.setTitle("New Post", for: .normal)
+        postItButton.setTitleColor(.white, for: .normal)
+        postItButton.clipsToBounds = true
+        postItButton.layer.cornerRadius = 5
+        postItButton.titleLabel?.font = UIFont(name: Utils.font, size: Utils.smallSize)
+        postItButton.frame = CGRect(x: 0, y: 0, width: 100, height: 35)
+        postItButton.addTarget(self, action: #selector(postIt), for: .touchUpInside)
+        let rigtBarButton = UIBarButtonItem(customView: postItButton)
+        self.navigationItem.rightBarButtonItem = rigtBarButton
     }
     
    
@@ -390,8 +400,25 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         menuBar.delegate?.getIndex(indexItem: Int(memoryIndex))
     }
     //MARK:-selectors
-    @objc func uploadPost(){
+    @objc func postIt(){
+        text.endEditing(true)
+        guard !text.text.isEmpty else{
+            Utils.errorProgress(msg: "Your Post Can Not Be Empty")
+            text.resignFirstResponder()
+            return
+        }
+        guard let price = priceText else {
+            Utils.errorProgress(msg: "You Must Set a Price")
+            handleShowPopUp(target: "addPrice")
+            return
+        }
         
+        let date =  Int64(Date().timeIntervalSince1970 * 1000).description
+        UploadSerivce.shared.saveToStorageDatas(postDate: date, currentUser: currentUser, datas: imageList) { (listOfUrl) in
+            for item in listOfUrl{
+                print("DEBUG: Url : \(item)")
+            }
+        }
     }
     @objc func _addPrice(){
         if priceText != nil{
@@ -412,7 +439,6 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
             vc.sendLocationDelegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         }
-       
        
     }
   
@@ -525,7 +551,9 @@ extension NewPostController : FuturesItemDelegate{
     }
     
     func addKm() {
-       
+       let vc = AddKmController()
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
     }
     
     func addModel() {
@@ -560,6 +588,11 @@ extension NewPostController : PopUpNumberDelegate {
     
 }
 extension NewPostController : PopUpYearDelegate {
+    func addKm(_target: String) {
+        km = _target
+        self.collecitonView.reloadData()
+    }
+    
     func handleDismissal(_ target: String?) {
         _handleDismissal(target: "addYear")
     }

@@ -104,9 +104,9 @@ class PopUpViewController : UIView{
         self.endEditing(true)
     }
     //MARK:-selectors
-    @objc func handleDismissal(target : String)
+    @objc func handleDismissal()
     {
-        delegate?.handleDismissal(target)
+        delegate?.handleDismissal(target!)
         
     }
     @objc func donePicker(){
