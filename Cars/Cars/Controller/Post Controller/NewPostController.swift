@@ -29,14 +29,17 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
     var imageList = [Data]()
     var gallery: GalleryController!
     weak var getLocation : SendLocationDelegate?
+    weak var brandDelegate : BrandDelegate?
     var geoPoint : GeoPoint?
-  
-    var car : Car?{
+    var brand : String?{
         didSet{
-            if let price = car?.price{
-                priceText = price
-                
-            }
+            collecitonView.reloadData()
+        }
+    }
+    
+    var model : String?{
+        didSet{
+            collecitonView.reloadData()
         }
     }
     lazy var popUpView : PopUpViewController = {
@@ -46,6 +49,7 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         view.delegate = self
         return view
     }()
+   
     let visualEffectView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .dark)
         let view = UIVisualEffectView(effect: blurEffect)
@@ -57,12 +61,15 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         didSet{
             guard let text = priceText else{
                 priceLabel.text = "Add Price"
+                addPrice.setImage(#imageLiteral(resourceName: "new_post").withRenderingMode(.alwaysOriginal), for: .normal)
                 return
             }
-            priceLabel.textColor = .red
+
             priceLabel.text = text
+            addPrice.setImage(#imageLiteral(resourceName: "cancel").withRenderingMode(.alwaysOriginal), for: .normal)
         }
     }
+    
     var locaitonText : String? {
         didSet{
             guard let text = locaitonText else{
@@ -72,6 +79,16 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
             
             locationLabel.text = text
             addLocation.setImage(#imageLiteral(resourceName: "cancel").withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+    }
+    var yearText : String?{
+        didSet{
+            collecitonView.reloadData()
+        }
+    }
+    var km : String?{
+        didSet{
+            collecitonView.reloadData()
         }
     }
     
@@ -196,17 +213,22 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
     }
     
     func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
+        Utils.waitProgress(msg: nil)
         controller.dismiss(animated: true) {
             for image in images{
                 image.resolve { (img) in
                     if let image_data = img!.jpegData(compressionQuality: 0.8){
                         self.imageList.append(image_data)
                         self.collecitonView.reloadData()
+                        Utils.dismissProgress()
                     }
                 }
+                
             }
+           
         }
         gallery = nil
+     
     }
     
     func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
@@ -251,14 +273,15 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         visualEffectView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         
         visualEffectView.alpha = 0
-        
-        
-        view.addSubview(popUpView)
-        popUpView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80).isActive = true
-        popUpView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        popUpView.heightAnchor.constraint(equalToConstant: view.frame.width - 200).isActive = true
-        popUpView.widthAnchor.constraint(equalToConstant: view.frame.width - 44).isActive = true
-        popUpView.target = target
+        if target == "addPrice"{
+            view.addSubview(popUpView)
+            popUpView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80).isActive = true
+            popUpView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            popUpView.heightAnchor.constraint(equalToConstant: view.frame.width - 200).isActive = true
+            popUpView.widthAnchor.constraint(equalToConstant: view.frame.width - 44).isActive = true
+            popUpView.target = target
+        }
+       
         
         UIView.animate(withDuration: 0.5) {
             self.popUpView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
@@ -269,15 +292,18 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         }
         return
     }
-    func _handleDismissal() {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.visualEffectView.alpha = 0
-            self.popUpView.alpha = 0
-            self.popUpView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-        }) { (_) in
-            self.popUpView.removeFromSuperview()
-            print("Did remove pop up window..")
+    func _handleDismissal(target : String) {
+       if target == "addPrice"{
+            UIView.animate(withDuration: 0.5, animations: {
+                self.visualEffectView.alpha = 0
+                self.popUpView.alpha = 0
+                self.popUpView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            }) { (_) in
+                self.popUpView.removeFromSuperview()
+                print("Did remove pop up window..")
+            }
         }
+       
     }
     private func setToolbar(){
         setNavigationBar()
@@ -368,7 +394,11 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
         
     }
     @objc func _addPrice(){
-        handleShowPopUp(target: "addPrice")
+        if priceText != nil{
+            priceText = nil
+        }else{
+            handleShowPopUp(target: "addPrice")
+        }
     }
     @objc func _addLocaiton(){
         if locaitonText != nil {
@@ -450,7 +480,10 @@ extension NewPostController : UICollectionViewDelegate , UICollectionViewDataSou
             FuturesCell
             cell.backgroundColor = .white
             cell.delegate = self
-            cell.car = car
+            cell.yearText = yearText
+            cell.km = km
+            cell.brand = brand
+            cell.carModel = model
             return cell
         }
     }
@@ -462,43 +495,90 @@ extension NewPostController : UICollectionViewDelegate , UICollectionViewDataSou
 }
 
 extension NewPostController : FuturesItemDelegate{
+    func removeBrand() {
+        self.brand = nil
+        self.model = nil
+        self.collecitonView.reloadData()
+    }
+    
+    func removeModel() {
+        self.model = nil
+        self.collecitonView.reloadData()
+    }
+    
+    func removeKm() {
+        self.km = nil
+        self.collecitonView.reloadData()
+    }
+    
+    func removeYear() {
+        self.yearText = nil
+        self.collecitonView.reloadData()
+       
+    }
+    
     func addBrand() {
-        print("DEBUG :: addBrand")
+        brandDelegate = self
+        let vc = ChooseBrandController(target: "brand")
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
     }
     
     func addKm() {
-        
+       
     }
     
     func addModel() {
-        print("DEBUG :: addModel")
+        if let brand = brand {
+            brandDelegate = self
+            let vc = ChooseBrandController(target: brand)
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+        }
+       
     }
     
     func addYear() {
-        handleShowPopUp(target: "addYear")
+  
+        let vc = AddYearController()
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
     }
     
     
 }
 extension NewPostController : PopUpNumberDelegate {
-    func handleDismissal() {
-        _handleDismissal()
+    func handleDismissal(_ target: String) {
+        _handleDismissal(target: target)
     }
-    
     func addPrice(_ target: String?) {
-        print("DEBUG:: \(target)")
-        car?.price = target
         priceText = target
         self.collecitonView.reloadData()
-        _handleDismissal()
+        _handleDismissal(target: "addPrice")
 
     }
     
+}
+extension NewPostController : PopUpYearDelegate {
+    func handleDismissal(_ target: String?) {
+        _handleDismissal(target: "addYear")
+    }
+    
     func addYear(_ target: String?) {
-        print("DEBUG:: \(target)")
-   
+        yearText = target
         self.collecitonView.reloadData()
-        _handleDismissal()
+       
+    }
+    
+    
+}
+extension NewPostController : BrandDelegate {
+    func chooseBrand(target: String) {
+        self.brand = target
+    }
+    
+    func chooseModel(target: String) {
+        self.model = target 
     }
     
     

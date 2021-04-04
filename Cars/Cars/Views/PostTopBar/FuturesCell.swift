@@ -14,7 +14,22 @@ class FuturesCell: UICollectionViewCell {
     let UIPicker: UIPickerView = UIPickerView()
     var tableView = UITableView()
     weak var delegate : FuturesItemDelegate?
-    var car : Car?{
+    var yearText : String?{
+        didSet{
+            tableView.reloadData()
+        }
+    }
+    var km : String?{
+        didSet{
+            tableView.reloadData()
+        }
+    }
+    var brand : String?{
+        didSet{
+            tableView.reloadData()
+        }
+    }
+    var carModel : String?{
         didSet{
             tableView.reloadData()
         }
@@ -57,33 +72,41 @@ extension FuturesCell : UITableViewDelegate , UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "id", for: indexPath) as! FuturesItem
         if indexPath == [0,0] {
-            if let brand = car?.brand {
-                cell.lbl.text = brand
+            if let text = brand {
+                cell.lbl.text = text
+                cell.img.setImage(#imageLiteral(resourceName: "cancel").withRenderingMode(.alwaysOriginal), for: .normal)
             }else{
-                cell.lbl.text = "Add Brand"
+                cell.lbl.text  = "Add Brand"
+                cell.img.setImage(#imageLiteral(resourceName: "new_post").withRenderingMode(.alwaysOriginal), for: .normal)
             }
            
         }else if indexPath == [1,0]{
-            if let carModel = car?.carModel {
-                cell.lbl.text = carModel
+            if let text = carModel {
+                cell.lbl.text = text
+                cell.img.setImage(#imageLiteral(resourceName: "cancel").withRenderingMode(.alwaysOriginal), for: .normal)
             }else{
                 cell.lbl.text  = "Add Model"
+                cell.img.setImage(#imageLiteral(resourceName: "new_post").withRenderingMode(.alwaysOriginal), for: .normal)
             }
-  
         }
         else if indexPath == [2,0]{
-            if let year = car?.year {
-                cell.lbl.text = year
+            if let text = yearText {
+                cell.lbl.text = text
+                cell.img.setImage(#imageLiteral(resourceName: "cancel").withRenderingMode(.alwaysOriginal), for: .normal)
             }else{
                 cell.lbl.text  = "Add Year"
-               
+                cell.img.setImage(#imageLiteral(resourceName: "new_post").withRenderingMode(.alwaysOriginal), for: .normal)
             }
+            
         }
         else if indexPath == [3,0]{
-            if let km = car?.km {
-                cell.lbl.text = km
+            cell.lbl.text  = "Add km"
+            if let text = km {
+                cell.lbl.text = text
+                cell.img.setImage(#imageLiteral(resourceName: "cancel").withRenderingMode(.alwaysOriginal), for: .normal)
             }else{
-                cell.lbl.text  = "Add km"
+                cell.lbl.text  = "Add Km"
+                cell.img.setImage(#imageLiteral(resourceName: "new_post").withRenderingMode(.alwaysOriginal), for: .normal)
             }
         }
         return cell
@@ -123,18 +146,34 @@ extension FuturesCell : UITableViewDelegate , UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
         if indexPath == [0,0] {
-            
-            delegate?.addBrand()
+            if  brand != nil{
+                delegate?.removeBrand()
+                delegate?.removeModel()
+            }else{
+                delegate?.addBrand()
+            }
+        
         }else if indexPath == [1,0]{
-            delegate?.addModel()
+            if  carModel != nil{
+                delegate?.removeModel()
+            }else{
+                delegate?.addModel()
+            }
         }
         else if indexPath == [2,0]{
-            delegate?.addYear()
-           // showYearPicaker()
-            
+            if  yearText != nil{
+                delegate?.removeYear()
+            }else{
+                delegate?.addYear()
+            }
         }
         else if indexPath == [3,0]{
-            delegate?.addKm()
+            if km != nil {
+                delegate?.removeKm()
+            }else{
+                delegate?.addKm()
+            }
+            
         }
     }
 }

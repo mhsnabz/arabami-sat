@@ -41,9 +41,19 @@ protocol FuturesItemDelegate : class {
     func addKm()
     func addModel()
     func addYear()
+    
+    func removeYear()
+    func removeKm()
+    func removeBrand()
+    func removeModel()
 }
-protocol PopUpNumberDelegate : class {
-    func handleDismissal()
-    func addPrice(_ target : String?)
+
+protocol PopUpYearDelegate : class {
+    func handleDismissal(_ target : String?)
     func addYear(_ target : String?)
+}
+
+protocol PopUpNumberDelegate : class {
+    func handleDismissal( _ target : String)
+    func addPrice(_ target : String?)
 }

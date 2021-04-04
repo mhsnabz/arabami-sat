@@ -111,4 +111,29 @@ class Utils{
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
+    
+    var brandList = ["Volvo","Merceders","BMW","Toyota"]
+    var volvoList = ["xc40","xc60","xc90","s40","s60","s90"]
+    var mercerdersList = ["Mercedes-Benz AMG GLE Coupe","Mercedes-Benz AMG GT 4-Door Coupe","Mercedes-Benz E-Class All Terrain","Mercedes-Benz New GLA"]
+    var bmwList = ["2 Series Gran Coupe","BMW X7","BMW Z4","BMW X5"]
+    var toyotaList = ["Avalon","Camry","Corolla","Prius","Yaris","Sienna","C-HR"]
+    
+    func getBrandList() -> [String]{
+        return brandList
+    }
+    func getCarModel(target : String) ->[String]{
+        if target == "Volvo" {
+            return volvoList
+        }else if target == "Merceders"{
+            return mercerdersList
+        }else if target == "BMW"{
+            return bmwList
+        }else if target == "Toyota"{
+            return toyotaList
+        }
+        return []
+    }
+    
+    
+    
 }
