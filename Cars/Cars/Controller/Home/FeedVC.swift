@@ -28,11 +28,7 @@ class FeedVC: UIViewController {
     var carList = [Car]()
     //MARK:-properties
     let tableView = UITableView()
-    let button : UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setTitle("çıkış", for: .normal)
-        return btn
-    }()
+  
     
     let newPostButton  : UIButton = {
         let btn = UIButton(type: .system)
@@ -41,6 +37,7 @@ class FeedVC: UIViewController {
         btn.layer.borderColor = UIColor.darkGray.cgColor
         btn.setImage(#imageLiteral(resourceName: "new_post").withRenderingMode(.alwaysOriginal), for: .normal)
         btn.imageView?.contentMode = .scaleAspectFit
+        btn.backgroundColor = .white
         return btn
     }()
     //MARK:-lifeCycle
@@ -51,10 +48,7 @@ class FeedVC: UIViewController {
         navigationController?.navigationBar.isHidden = false
         navigationItem.title = "Feed"
         setNavBatButton()
-        view.addSubview(button)
-        button.anchor(top: nil, left: nil, bottom: view.bottomAnchor, rigth: nil, marginTop: 0, marginLeft: 0, marginBottom: 30, marginRigth: 0, width: 200, heigth: 40)
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        button.addTarget(self, action: #selector(logOut), for: .touchUpInside)
+       
         configureUI()
         getPost()
     }
@@ -104,10 +98,11 @@ class FeedVC: UIViewController {
         collectionview = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         collectionview.dataSource = self
         collectionview.delegate = self
-        collectionview.backgroundColor = .white
+        collectionview.backgroundColor = .mainColorTransparent()
         collectionview.alwaysBounceVertical = true
         collectionview.refreshControl = refreshControl
         refreshControl.tintColor = .white
+   
         view.addSubview(collectionview)
         collectionview.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom:view.bottomAnchor, rigth: view.rightAnchor, marginTop: 0, marginLeft: 0, marginBottom: 0, marginRigth: 0, width: 0, heigth: 0)
         collectionview.register(FeedCell.self, forCellWithReuseIdentifier: "id")
@@ -250,10 +245,16 @@ extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionview.dequeueReusableCell(withReuseIdentifier: "id", for: indexPath) as! FeedCell
+        cell.backgroundColor = .white
         cell.model = carList[indexPath.row]
         cell.imageSlider.frame = CGRect(x: 0, y: 61, width: view.frame.width, height: view.frame.width)
         let h = carList[indexPath.row].decription!.height(withConstrainedWidth: view.frame.width - 24, font: UIFont(name: Utils.font, size: 11)!)
-        cell.descp.frame = CGRect(x: 12, y: view.frame.width + 61, width: view.frame.width - 24, height: h + 4)
+        if h > 15{
+            cell.descp.frame = CGRect(x: 12, y: view.frame.width + 61, width: view.frame.width - 24, height: h + 4)
+        }else{
+            cell.descp.frame = CGRect(x: 12, y: view.frame.width + 61, width: view.frame.width - 24, height: 19)
+        }
+       
       
         return cell
     }
@@ -267,7 +268,8 @@ extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UIColl
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if loadMore{
-            return CGSize(width: view.frame.width, height: 50)
+            return .zero
+//            return CGSize(width: view.frame.width, height: 50)
         }else{
             return .zero
         }
@@ -282,7 +284,12 @@ extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UIColl
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let h = carList[indexPath.row].decription!.height(withConstrainedWidth: view.frame.width - 24, font: UIFont(name: Utils.font, size: 11)!)
-        return CGSize(width: view.frame.width, height: view.frame.width + h + 4 + 30 + 61)
+        if h > 30 {
+            return CGSize(width: view.frame.width, height: view.frame.width + h + 4 + 20 + 61)
+        }else{
+            return CGSize(width: view.frame.width, height: view.frame.width + 15 + 4 + 20 + 61)
+        }
+        
     }
     
 }
