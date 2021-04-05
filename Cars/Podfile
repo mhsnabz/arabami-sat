@@ -30,14 +30,6 @@ target 'Cars' do
   pod 'SDWebImage', '~> 5.0'
  
   pod 'SVProgressHUD'
-  
-  pod 'PopupDialog', '~> 1.1'
-  
-  pod 'SwiftyAttributes'
-  
-  pod 'ActiveLabel'
-
-  
   pod 'lottie-ios'
   
   pod 'ImagePicker'
@@ -46,8 +38,6 @@ target 'Cars' do
   
   pod 'Gallery'
 
-
-  pod 'SwipeCellKit'
 
   target 'CarsTests' do
     inherit! :search_paths

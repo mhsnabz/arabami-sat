@@ -60,7 +60,7 @@ class PostTopBar : UIView,  UICollectionViewDataSource , UICollectionViewDelegat
         if indexPath.item == 0 {
             cell.lbl.text = "Media"
         }else if indexPath.item == 1 {
-            cell.lbl.text = "Futures"
+            cell.lbl.text = "Features"
         }
         return cell
     }

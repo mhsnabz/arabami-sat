@@ -89,7 +89,7 @@ class FeedVC: UIViewController {
     }
     
     @objc func loadData(){
-        
+        getPost()
     }
     //MARK:-handlers
     
@@ -177,6 +177,7 @@ class FeedVC: UIViewController {
                         return car1.postTimeLong ?? Int64(Date().timeIntervalSince1970) > car2.postTimeLong ?? Int64(Date().timeIntervalSince1970)
                     }
                     sself.collectionview.reloadData()
+                    sself.collectionview.refreshControl?.endRefreshing()
                 }
             }
         }
@@ -290,6 +291,15 @@ extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UIColl
             return CGSize(width: view.frame.width, height: view.frame.width + 15 + 4 + 20 + 61)
         }
         
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+      
+        guard let post = carList[indexPath.row] else { return }
+        let vc = SinglePost(currentUser : currentUser , car : carList[indexPath.row])
+        if post.senderUid! != currentUser.uid!  {
+            
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }

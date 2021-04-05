@@ -27,6 +27,19 @@
 			</array>
 		</dict>
 	</array>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>maps.google.com/maps/api/staticmap</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+            </dict>
+        </dict>
+    </dict>
     <key>NSCameraUsageDescription</key>
     <string>This app wants to take pictures.</string>
     <key>NSPhotoLibraryUsageDescription</key>
