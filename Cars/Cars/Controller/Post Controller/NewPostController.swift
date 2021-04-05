@@ -463,7 +463,7 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
                        "senderUid": sself.currentUser.uid as Any,
                        "senderImage":sself.currentUser.thumbImage ?? "",
                        "decription":sself.text.text as Any,
-                       "postTime":FieldValue.serverTimestamp(),
+                       "postTime":FieldValue.serverTimestamp(),"imageList":FieldValue.arrayUnion(listOfUrl),
                        "postTimeLong":Date().timeIntervalSince1970] as [String : Any]
             UploadSerivce.shared.setNewPost(postId: postId, dic: dic, uid: sself.currentUser.uid!) { (_val) in
                 if _val{

@@ -20,6 +20,11 @@ class FeedVC: UIViewController {
     weak var delegate : HomeControllerDelegate?
     var isMenuOpen : Bool = false
     var collectionview: UICollectionView!
+    private(set) lazy var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        return control
+    }()
     var carList = [Car]()
     //MARK:-properties
     let tableView = UITableView()
@@ -51,6 +56,7 @@ class FeedVC: UIViewController {
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         button.addTarget(self, action: #selector(logOut), for: .touchUpInside)
         configureUI()
+        getPost()
     }
     
     
@@ -87,6 +93,10 @@ class FeedVC: UIViewController {
     @objc func showMenu(){
         self.delegate?.handleMenuToggle(forMenuOption: nil)
     }
+    
+    @objc func loadData(){
+        
+    }
     //MARK:-handlers
     
     private func configureUI(){
@@ -94,7 +104,10 @@ class FeedVC: UIViewController {
         collectionview = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         collectionview.dataSource = self
         collectionview.delegate = self
-        
+        collectionview.backgroundColor = .white
+        collectionview.alwaysBounceVertical = true
+        collectionview.refreshControl = refreshControl
+        refreshControl.tintColor = .white
         view.addSubview(collectionview)
         collectionview.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom:view.bottomAnchor, rigth: view.rightAnchor, marginTop: 0, marginLeft: 0, marginBottom: 0, marginRigth: 0, width: 0, heigth: 0)
         collectionview.register(FeedCell.self, forCellWithReuseIdentifier: "id")
@@ -152,6 +165,67 @@ class FeedVC: UIViewController {
         }, completion: nil)
     }
     
+    fileprivate func getPost(){
+        carList = [Car]()
+        loadMore = true
+        collectionview.reloadData()
+        fetchPost {[weak self] (list) in
+            guard let sself = self else { return }
+            sself.carList = list
+            if list.count == 0{
+                sself.loadMore = false
+                sself.collectionview.reloadData()
+                sself.collectionview.refreshControl?.endRefreshing()
+            }else{
+                if sself.carList.count > 0 {
+                    sself.carList.sort { (car1, car2) -> Bool in
+                        return car1.postTimeLong ?? Int64(Date().timeIntervalSince1970) > car2.postTimeLong ?? Int64(Date().timeIntervalSince1970)
+                    }
+                    sself.collectionview.reloadData()
+                }
+            }
+        }
+        
+    }
+    func fetchPost(completion : @escaping([Car])->()){
+        collectionview.refreshControl?.beginRefreshing()
+        var post = [Car]()
+        let db = Firestore.firestore().collection("feed-post").limit(to: 5).order(by: "postTimeLong",descending: true)
+        db.getDocuments {[weak self] (querySnap, err) in
+            guard let sself = self else { return }
+            if let err = err {
+                print("DEBUG:: fetch post err : \(err.localizedDescription)")
+            }else{
+                guard let snap = querySnap else {
+                    completion([])
+                    sself.collectionview.refreshControl?.endRefreshing()
+                    return
+                }
+                if snap.isEmpty {
+                    completion([])
+                    sself.collectionview.refreshControl?.endRefreshing()
+                }
+                for item in snap.documents {
+                    let db = Firestore.firestore().collection("feed-post").document(item.documentID)
+                    db.getDocument { (docSnap, err) in
+                        if let err = err {
+                            print("DEBUG:: err fetch single post \(err.localizedDescription)")
+                        }else{
+                            guard let snap = docSnap else { return }
+                            if snap.exists{
+                                post.append(Car.init(dic: snap.data()!))
+                            }
+                        }
+                        completion(post)
+                    }
+                }
+                sself.page = snap.documents.last
+                sself.loadMore = true
+                sself.collectionview.refreshControl?.endRefreshing()
+                
+            }
+        }
+    }
 }
 
 extension FeedVC : QueriesDelegate {
@@ -176,6 +250,11 @@ extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionview.dequeueReusableCell(withReuseIdentifier: "id", for: indexPath) as! FeedCell
+        cell.model = carList[indexPath.row]
+        cell.imageSlider.frame = CGRect(x: 0, y: 61, width: view.frame.width, height: view.frame.width)
+        let h = carList[indexPath.row].decription!.height(withConstrainedWidth: view.frame.width - 24, font: UIFont(name: Utils.font, size: 11)!)
+        cell.descp.frame = CGRect(x: 12, y: view.frame.width + 61, width: view.frame.width - 24, height: h + 4)
+      
         return cell
     }
     
@@ -201,6 +280,9 @@ extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 2
     }
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let h = carList[indexPath.row].decription!.height(withConstrainedWidth: view.frame.width - 24, font: UIFont(name: Utils.font, size: 11)!)
+        return CGSize(width: view.frame.width, height: view.frame.width + h + 4 + 30 + 61)
+    }
     
 }

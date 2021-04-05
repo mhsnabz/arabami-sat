@@ -22,7 +22,7 @@ class Car{
     var postTimeLong  : Int64?
     var locationName : String?
     var imageList : [String]?
-    init(dic: [String : AnyObject]){
+    init(dic: [String : Any]){
         if let brand = dic["brand"] as? String {
             self.brand = brand
         }

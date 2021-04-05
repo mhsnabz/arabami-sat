@@ -20,10 +20,13 @@ class ImageCell: UICollectionViewCell {
     let imageView : UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .lightText
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubview(imageView)
+        imageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, rigth: rightAnchor, marginTop: 0, marginLeft: 0, marginBottom: 0, marginRigth: 0, width: 0, heigth: 0)
     }
     
     required init?(coder: NSCoder) {
