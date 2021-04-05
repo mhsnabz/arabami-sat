@@ -8,14 +8,19 @@
 import UIKit
 import FirebaseAuth
 import SDWebImage
+import  FirebaseFirestore
 class FeedVC: UIViewController {
     //MARK:-variables
-    
+    var page : DocumentSnapshot? = nil
+    var loadMore : Bool = false
+    var lastDocumentSnapshot: DocumentSnapshot!
     private var dropDownMenu : DropDownMenu
     var currentUser : CurrentUser
     let transparentView = UIView()
     weak var delegate : HomeControllerDelegate?
     var isMenuOpen : Bool = false
+    var collectionview: UICollectionView!
+    var carList = [Car]()
     //MARK:-properties
     let tableView = UITableView()
     let button : UIButton = {
@@ -85,10 +90,20 @@ class FeedVC: UIViewController {
     //MARK:-handlers
     
     private func configureUI(){
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        collectionview = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        collectionview.dataSource = self
+        collectionview.delegate = self
+        
+        view.addSubview(collectionview)
+        collectionview.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom:view.bottomAnchor, rigth: view.rightAnchor, marginTop: 0, marginLeft: 0, marginBottom: 0, marginRigth: 0, width: 0, heigth: 0)
+        collectionview.register(FeedCell.self, forCellWithReuseIdentifier: "id")
+        collectionview.register(LoadMoreCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "moreId")
         view.addSubview(newPostButton)
         newPostButton.anchor(top: nil, left: nil, bottom: view.bottomAnchor, rigth: view.rightAnchor, marginTop: 0, marginLeft: 0, marginBottom: 25, marginRigth: 12, width: 50, heigth: 50)
         newPostButton.addTarget(self, action: #selector(newPost), for: .touchUpInside)
         newPostButton.layer.cornerRadius = 25
+        
     }
     
     private func setNavBatButton(){
@@ -150,6 +165,41 @@ extension FeedVC : QueriesDelegate {
         case .sortByYear:
             print("DEBUG:: sortByYear")
         }
+    }
+    
+    
+}
+extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return carList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionview.dequeueReusableCell(withReuseIdentifier: "id", for: indexPath) as! FeedCell
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "moreId", for: indexPath)
+            as! LoadMoreCell
+        cell.activityView.startAnimating()
+        return cell
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if loadMore{
+            return CGSize(width: view.frame.width, height: 50)
+        }else{
+            return .zero
+        }
+       
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 2
     }
     
     
