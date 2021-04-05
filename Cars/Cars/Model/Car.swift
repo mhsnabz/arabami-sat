@@ -20,10 +20,17 @@ class Car{
     var decription : String?
     var postTime : Timestamp?
     var postTimeLong  : Int64?
-    
+    var locationName : String?
+    var imageList : [String]?
     init(dic: [String : AnyObject]){
         if let brand = dic["brand"] as? String {
             self.brand = brand
+        }
+        if let imageList = dic["imageList"] as? [String] {
+            self.imageList = imageList
+        }
+        if let locationName = dic["locationName"] as? String {
+            self.locationName = locationName
         }
         if let carModel = dic["carModel"] as? String {
             self.carModel = carModel

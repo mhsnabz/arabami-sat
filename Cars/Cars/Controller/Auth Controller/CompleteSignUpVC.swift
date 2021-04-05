@@ -191,7 +191,7 @@ class CompleteSignUpVC: UIViewController {
                 sself.changeStatus(uid: uid) { (_) in
                     UserService.shared.getTaskUser(with: uid) { (taskUser) in
                         guard let taskUser = taskUser else { return }
-                        let dic = ["name":taskUser.name,"phoneNumber":taskUser.phoneNumber,"email":taskUser.email,"profileImage":taskUser.profileImage,"thumbImage":taskUser.thumbImage] as [String : AnyObject]
+                        let dic = ["name":taskUser.name,"uid":taskUser.uid,"phoneNumber":taskUser.phoneNumber,"email":taskUser.email,"profileImage":taskUser.profileImage,"thumbImage":taskUser.thumbImage] as [String : AnyObject]
                         let db = Firestore.firestore().collection("task-user").document(uid)
                         db.delete { (err) in
                             let db = Firestore.firestore().collection("user").document(uid)

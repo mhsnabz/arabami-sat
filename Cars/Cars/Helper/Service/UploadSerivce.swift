@@ -176,4 +176,19 @@ class UploadSerivce {
         }
         
     }
+    
+    
+    func setNewPost(postId : String ,dic : [String : Any]  , uid : String ,completion : @escaping(Bool) ->()){
+        let db = Firestore.firestore().collection("feed-post").document(postId)
+        db.setData(dic, merge: true) { (err) in
+            if let err = err {
+                Utils.dismissProgress()
+                Utils.errorProgress(msg: err.localizedDescription)
+                completion(false)
+            }else{
+                completion(true)
+            }
+        }
+    
+    }
 }

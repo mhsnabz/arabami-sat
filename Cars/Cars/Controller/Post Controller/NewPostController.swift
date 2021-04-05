@@ -412,11 +412,66 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
             handleShowPopUp(target: "addPrice")
             return
         }
-        
+        guard let brand = brand else {
+            Utils.errorProgress(msg: "You Must Select Brand")
+            let vc = ChooseBrandController(target: "brand")
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+            return }
+        guard let carModel = model else{
+            Utils.errorProgress(msg: "You Must Select Car Model")
+            brandDelegate = self
+            let vc = ChooseBrandController(target: brand)
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+            
+            return
+        }
+        guard let year = yearText else{
+            Utils.errorProgress(msg: "You Must Set Year")
+            let vc = AddYearController()
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+            return
+        }
+        guard let km = km else {
+            Utils.errorProgress(msg: "You Must Select Km")
+            let vc = AddKmController()
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+            return
+        }
+        if imageList.count <= 0{
+            Utils.errorProgress(msg: "You Must Add Images")
+            addImage()
+            return
+        }
+      
         let date =  Int64(Date().timeIntervalSince1970 * 1000).description
-        UploadSerivce.shared.saveToStorageDatas(postDate: date, currentUser: currentUser, datas: imageList) { (listOfUrl) in
-            for item in listOfUrl{
-                print("DEBUG: Url : \(item)")
+        UploadSerivce.shared.saveToStorageDatas(postDate: date, currentUser: currentUser, datas: imageList) {[weak self] (listOfUrl) in
+            guard let sself = self else { return }
+            let postId : String = Date().timeIntervalSince1970.description
+            let dic = ["brand":brand,
+                       "carModel":carModel,
+                       "price":price,
+                       "year":year,
+                       "km":km,
+                       "postId" : postId,
+                       "locaiton":sself.geoPoint as Any,
+                       "locationName":sself.locaitonText ?? "",
+                       "senderName":sself.currentUser.name as Any,
+                       "senderUid": sself.currentUser.uid as Any,
+                       "senderImage":sself.currentUser.thumbImage ?? "",
+                       "decription":sself.text.text as Any,
+                       "postTime":FieldValue.serverTimestamp(),
+                       "postTimeLong":Date().timeIntervalSince1970] as [String : Any]
+            UploadSerivce.shared.setNewPost(postId: postId, dic: dic, uid: sself.currentUser.uid!) { (_val) in
+                if _val{
+                    Utils.succesProgress(msg: "Succes")
+                    sself.navigationController?.popViewController(animated: true)
+                }else{
+                    Utils.errorProgress(msg: "err")
+                }
             }
         }
     }
