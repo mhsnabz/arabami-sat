@@ -109,15 +109,15 @@ class FeedCell: UICollectionViewCell {
         
         carBrandAtt = NSMutableAttributedString(string: "\(model.brand!)", attributes: [NSAttributedString.Key.font : UIFont(name: Utils.font, size: 14)!, NSAttributedString.Key.foregroundColor : UIColor.black])
         carBrandAtt.append(NSMutableAttributedString(string: " : \(model.carModel!)", attributes: [NSAttributedString.Key.font : UIFont(name: Utils.font, size: 12)!, NSAttributedString.Key.foregroundColor : UIColor.darkGray]))
-        carBrandAtt.append(NSMutableAttributedString(string: "  \(model.year!) model", attributes: [NSAttributedString.Key.font : UIFont(name: Utils.font, size: 12)!, NSAttributedString.Key.foregroundColor : UIColor.darkGray]))
+        carBrandAtt.append(NSMutableAttributedString(string: "  \(model.year! ) model", attributes: [NSAttributedString.Key.font : UIFont(name: Utils.font, size: 12)!, NSAttributedString.Key.foregroundColor : UIColor.darkGray]))
         
      
         carBrand.attributedText = carBrandAtt
-        price.text = model.price! + " TL"
+        price.text = "\(String(describing: model.price!.description)) TL" 
         locaiton.text = model.locationName ?? ""
         descp.text = model.decription
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         time.text  = dateFormatter.string(from: (model.postTime?.dateValue())!)
         logo.image = UIImage(named: model.brand!)
     }

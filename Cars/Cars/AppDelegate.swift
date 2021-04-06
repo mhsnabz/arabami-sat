@@ -8,6 +8,8 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import RealmSwift
+var uiRealm = try! Realm()
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -21,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         let controller = SplashScreen()
         window?.rootViewController = controller
+        
+        print("Realm Path : \(uiRealm.configuration.fileURL?.absoluteURL)")
+
         return true
     }
     

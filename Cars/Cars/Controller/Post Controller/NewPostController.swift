@@ -453,9 +453,9 @@ class NewPostController: UIViewController, PostTopBarSelectedIndex,LightboxContr
             let postId : String = Date().timeIntervalSince1970.description
             let dic = ["brand":brand,
                        "carModel":carModel,
-                       "price":price,
-                       "year":year,
-                       "km":km,
+                       "price":Int(price) ?? 0,
+                       "year":Int(year) ?? 0,
+                       "km":Int(km) ?? 0,
                        "postId" : postId,
                        "locaiton":sself.geoPoint as Any,
                        "locationName":sself.locaitonText ?? "",

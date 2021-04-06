@@ -10,9 +10,9 @@ import FirebaseFirestore
 class Car{
     var brand : String?
     var carModel : String?
-    var price : String?
-    var year : String?
-    var km : String?
+    var price : Int?
+    var year : Int?
+    var km : Int?
     var locaiton : GeoPoint?
     var senderName : String?
     var senderUid : String?
@@ -22,9 +22,13 @@ class Car{
     var postTimeLong  : Int64?
     var locationName : String?
     var imageList : [String]?
+    var postId : String?
     init(dic: [String : Any]){
         if let brand = dic["brand"] as? String {
             self.brand = brand
+        }
+        if let postId = dic["postId"] as? String {
+            self.postId = postId
         }
         if let imageList = dic["imageList"] as? [String] {
             self.imageList = imageList
@@ -35,13 +39,13 @@ class Car{
         if let carModel = dic["carModel"] as? String {
             self.carModel = carModel
         }
-        if let km = dic["km"] as? String {
+        if let km = dic["km"] as? Int {
             self.km = km
         }
-        if let price = dic["price"] as? String {
+        if let price = dic["price"] as? Int {
             self.price = price
         }
-        if let year = dic["year"] as? String {
+        if let year = dic["year"] as? Int {
             self.year = year
         }
         if let locaiton = dic["locaiton"] as? GeoPoint {

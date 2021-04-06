@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseAuth
 import SDWebImage
+import Network
+
 import  FirebaseFirestore
 class FeedVC: UIViewController, SearchingDelegate {
     func queryCallBack(query: String?) {
@@ -18,6 +20,22 @@ class FeedVC: UIViewController, SearchingDelegate {
     }
     
     //MARK:-variables
+    var hasInternet : Bool?{
+        didSet{
+            if let network = hasInternet {
+                if network {
+                    print("DEBUG:: has internet")
+                }else{
+                    print("DEBUG:: has not internet")
+                }
+            }
+        }
+    }
+
+    
+    let internetMonitor = NWPathMonitor()
+    let internetQueue = DispatchQueue(label: "InternetMonitor")
+    private var hasConnectionPath = false
     var page : DocumentSnapshot? = nil
     var loadMore : Bool = false
     var lastDocumentSnapshot: DocumentSnapshot!
@@ -36,6 +54,7 @@ class FeedVC: UIViewController, SearchingDelegate {
         return control
     }()
     var carList = [Car]()
+
     //MARK:-properties
     let tableView = UITableView()
     var query : String?{
@@ -46,29 +65,57 @@ class FeedVC: UIViewController, SearchingDelegate {
     
     var sortByPrice : Bool?{
         didSet{
-            guard let val = sortByPrice else { return }
-            if val {
-                getPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: query)
+            if let price = sortByPrice {
+                
+                if let connection = hasInternet {
+                    if connection {
+                        if price {
+                          carList.sort { (car1, car2) -> Bool in
+                                return car1.price ?? 0 < car2.price ?? 0
+                            }
+                         collectionview.reloadData()
+                        }
+                    }else{
+                        if price {
+                            carList = [Car]()
+                            self.getRealmArrayList {[weak self] (list) in
+                                guard let sself = self else { return }
+                                sself.carList = list
+                                sself.carList.sort { (car1, car2) -> Bool in
+                                      return car1.price ?? 0 < car2.price ?? 0
+                                  }
+                                sself.collectionview.reloadData()
+                            }
+                        }
+                    }
+                }
+                
+               
             }
-            
         }
     }
     var sortByYear : Bool?{
         didSet{
-            guard let val = sortByYear else { return }
-            if val {
-                getPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: query)
+            if let sortByYear = sortByYear {
+                if sortByYear {
+                    carList.sort { (car1, car2) -> Bool in
+                        return car1.price ?? 0 < car2.price ?? 0
+                    }
+                    collectionview.reloadData()
+                }
             }
-            
         }
     }
     var sortByDate : Bool?{
         didSet{
-            guard let val = sortByDate else { return }
-            if val {
-                getPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: query)
+            if let sortByDate = sortByDate {
+                if sortByDate {
+                    carList.sort { (car1, car2) -> Bool in
+                        return car1.price ?? 0 < car2.price ?? 0
+                    }
+                    collectionview.reloadData()
+                }
             }
-          
         }
     }
     
@@ -90,7 +137,6 @@ class FeedVC: UIViewController, SearchingDelegate {
         navigationController?.navigationBar.isHidden = false
         navigationItem.title = "Feed"
         setNavBatButton()
-        
         configureUI()
         getPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: query)
         searchList.delegate = self
@@ -107,6 +153,52 @@ class FeedVC: UIViewController, SearchingDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        startInternetTracking()
+    }
+    //MARK:-internet status
+    func startInternetTracking() {
+        // only fires once
+        guard internetMonitor.pathUpdateHandler == nil else {
+            return
+        }
+
+        internetMonitor.pathUpdateHandler = { update in
+            if update.status == .satisfied {
+                print("Internet connection on.")
+                self.hasInternet = true
+            } else {
+                print("no internet connection.")
+                self.hasInternet = false
+            }
+        }
+        internetMonitor.start(queue: internetQueue)
+    }
+
+ 
+    private func getRealmArrayList(completion : @escaping([Car])->Void){
+        var items = [Car]()
+        let oCars = try! uiRealm.objects(OffOnlineObj.self)
+        for offOnlineObj in oCars {
+            let dic  = ["brand":offOnlineObj.brand ,
+                        "carModel": offOnlineObj.carModel ,
+                        "decription" :offOnlineObj.decription ,
+                        "locationName":  offOnlineObj.locationName ,
+                        "imageList" : offOnlineObj.imageList ,
+                        "locaiton"  : GeoPoint(latitude: offOnlineObj.lat, longitude: offOnlineObj.longLat) ,
+                        "postId" :  offOnlineObj.postID  ,
+                        "postTime" : Timestamp(date: (offOnlineObj.postTime as! NSDate) as Date),
+                        "senderImage" :offOnlineObj.senderImage ,
+                        "senderUid" : offOnlineObj.senderUid,
+                        "senderName":offOnlineObj.senderName ,
+                        "year" : offOnlineObj.year,
+                        "price":offOnlineObj.price ] as [String : AnyObject]
+            items.append(Car.init(dic: dic))
+        }
+        completion(items)
+    }
+    
     //MARK:-seletors
     @objc func logOut(){
         do{
@@ -146,6 +238,7 @@ class FeedVC: UIViewController, SearchingDelegate {
         
     }
     //MARK:-handlers
+    
     
     private func configureUI(){
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -251,31 +344,32 @@ class FeedVC: UIViewController, SearchingDelegate {
                 sself.collectionview.reloadData()
                 sself.collectionview.refreshControl?.endRefreshing()
             }else{
+                sself.carList.sort { (car1, car2) -> Bool in
+                    return car1.price ?? 0 < car2.price ?? 0
+                }
                 sself.collectionview.reloadData()
                 sself.collectionview.refreshControl?.endRefreshing()
             }
         }
-        
-        
-        
     }
     func fetchPost(sortByPrice : Bool? , sortByYear : Bool? , sortByDate : Bool? , sortByQuery : String?,completion : @escaping([Car])->()){
         collectionview.refreshControl?.beginRefreshing()
         var post = [Car]()
-        let db = Firestore.firestore().collection("feed-post") as CollectionReference
-        if let _ = sortByPrice {
-            db.order(by: "price",descending: true).limit(to: 5)
-            
-        }
-        else if let _  = sortByDate {
-            db.order(by: "postTimeLong",descending: true).limit(to: 5)
-        }else if let _ = sortByYear {
-            db.order(by: "year",descending: true).limit(to: 5)
-        }else if let query = sortByQuery  {
-            db.whereField("brand", isEqualTo: query  as String).limit(to: 5)
-        }else{
-            db.limit(to: 5)
-        }
+        var db = Firestore.firestore().collection("feed-post") as Query
+//        if let _ = sortByPrice {
+//
+//            db = db.limit(to: 5).order(by: "price",descending: true) as! Query
+//        }
+//        else if let _  = sortByDate {
+//
+//            db = db.limit(to: 5).order(by: "postTimeLong",descending: true) as! Query
+//        }else if let _ = sortByYear {
+//            db =  db.limit(to: 5).order(by: "year",descending: true)
+//        }else if let query = sortByQuery  {
+//            db =   db.limit(to: 5).whereField("brand", isEqualTo: query  as String) as! Query
+//        }else{
+//            db =  db.limit(to: 5)
+//        }
         db.getDocuments {[weak self] (querySnap, err) in
             guard let sself = self else { return }
             if let err = err {
@@ -300,6 +394,7 @@ class FeedVC: UIViewController, SearchingDelegate {
                             guard let snap = docSnap else { return }
                             if snap.exists{
                                 post.append(Car.init(dic: snap.data()!))
+                                sself.writeToRealm(car: Car.init(dic: snap.data()!))
                             }
                         }
                         completion(post)
@@ -311,6 +406,29 @@ class FeedVC: UIViewController, SearchingDelegate {
 
             }
         }
+    }
+    
+    private func writeToRealm(car : Car){
+        let offOnlineObj = OffOnlineObj()
+        offOnlineObj.brand = car.brand
+        offOnlineObj.carModel = car.carModel
+        offOnlineObj.decription = car.decription
+        offOnlineObj.locationName = car.locationName
+        if let images = car.imageList {
+            for item in images{
+                offOnlineObj.imageList.append(item)
+            }
+        }
+        offOnlineObj.lat = car.locaiton!.latitude
+        offOnlineObj.longLat = car.locaiton!.longitude
+        offOnlineObj.postID = car.postId
+        offOnlineObj.postTime = car.postTime!.dateValue()  as NSDate
+        offOnlineObj.senderImage = car.senderImage
+        offOnlineObj.senderUid = car.senderUid
+        offOnlineObj.senderName = car.senderName
+        offOnlineObj.price = car.price ?? 0
+        offOnlineObj.year = car.year
+        offOnlineObj.writeToRealm()
     }
 }
 

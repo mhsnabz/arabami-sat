@@ -371,6 +371,11 @@ PODS:
   - nanopb/decode (2.30906.0)
   - nanopb/encode (2.30906.0)
   - PromisesObjC (1.2.12)
+  - Realm (10.5.0):
+    - Realm/Headers (= 10.5.0)
+  - Realm/Headers (10.5.0)
+  - RealmSwift (10.5.0):
+    - Realm (= 10.5.0)
   - RevealingSplashView (0.6.0)
   - SDWebImage (5.10.1):
     - SDWebImage/Core (= 5.10.1)
@@ -390,6 +395,7 @@ DEPENDENCIES:
   - ImagePicker
   - Lightbox
   - lottie-ios
+  - RealmSwift
   - RevealingSplashView
   - SDWebImage (~> 5.0)
   - SVProgressHUD
@@ -426,6 +432,8 @@ SPEC REPOS:
     - lottie-ios
     - nanopb
     - PromisesObjC
+    - Realm
+    - RealmSwift
     - RevealingSplashView
     - SDWebImage
     - SVProgressHUD
@@ -461,11 +469,13 @@ SPEC CHECKSUMS:
   lottie-ios: 3a3758ef5a008e762faec9c9d50a39842f26d124
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  Realm: e1c22c3d83b229afb70ebc10e1771c91e9542d12
+  RealmSwift: 6fc078d9d3fd7e58c71bfdbb694e252462f112a5
   RevealingSplashView: 40c5a770894459736acdc95655eeba0dd30ce91c
   SDWebImage: f66a16b95183b92ed6b965ad21d33167bc07612d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TweeTextField: 47bf8e7f0433364a7f7e119c45e7f278ea50eb62
 
-PODFILE CHECKSUM: 736b870c148493eb2b9a6f0d73b366a6a1d88983
+PODFILE CHECKSUM: 85016d6e692d868516553878dbd9c6abee641e1d
 
 COCOAPODS: 1.10.1
