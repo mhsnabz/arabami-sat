@@ -9,7 +9,14 @@ import UIKit
 import FirebaseAuth
 import SDWebImage
 import  FirebaseFirestore
-class FeedVC: UIViewController {
+class FeedVC: UIViewController, SearchingDelegate {
+    func queryCallBack(query: String?) {
+        self.sortByPrice = nil
+        self.sortByYear = nil
+        self.sortByDate = nil
+        self.query = query
+    }
+    
     //MARK:-variables
     var page : DocumentSnapshot? = nil
     var loadMore : Bool = false
@@ -20,6 +27,9 @@ class FeedVC: UIViewController {
     weak var delegate : HomeControllerDelegate?
     var isMenuOpen : Bool = false
     var collectionview: UICollectionView!
+    var isSearching = false
+    let searchBar = UISearchBar()
+    var searchList = SearchingList()
     private(set) lazy var refreshControl: UIRefreshControl = {
         let control = UIRefreshControl()
         control.addTarget(self, action: #selector(loadData), for: .valueChanged)
@@ -28,7 +38,39 @@ class FeedVC: UIViewController {
     var carList = [Car]()
     //MARK:-properties
     let tableView = UITableView()
-  
+    var query : String?{
+        didSet{
+            getPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: query)
+        }
+    }
+    
+    var sortByPrice : Bool?{
+        didSet{
+            guard let val = sortByPrice else { return }
+            if val {
+                getPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: query)
+            }
+            
+        }
+    }
+    var sortByYear : Bool?{
+        didSet{
+            guard let val = sortByYear else { return }
+            if val {
+                getPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: query)
+            }
+            
+        }
+    }
+    var sortByDate : Bool?{
+        didSet{
+            guard let val = sortByDate else { return }
+            if val {
+                getPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: query)
+            }
+          
+        }
+    }
     
     let newPostButton  : UIButton = {
         let btn = UIButton(type: .system)
@@ -48,9 +90,11 @@ class FeedVC: UIViewController {
         navigationController?.navigationBar.isHidden = false
         navigationItem.title = "Feed"
         setNavBatButton()
-       
+        
         configureUI()
-        getPost()
+        getPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: query)
+        searchList.delegate = self
+        
     }
     
     
@@ -66,7 +110,7 @@ class FeedVC: UIViewController {
     //MARK:-seletors
     @objc func logOut(){
         do{
-           try! Auth.auth().signOut()
+            try! Auth.auth().signOut()
             let vc = SplashScreen()
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
@@ -74,7 +118,7 @@ class FeedVC: UIViewController {
     }
     @objc func sortQueries(){
         print("DEBUG:: sort queries click")
-       // addTransprantView(frame: view.frame)
+        // addTransprantView(frame: view.frame)
         dropDownMenu.showMenu()
         dropDownMenu.delegate = self
     }
@@ -89,7 +133,17 @@ class FeedVC: UIViewController {
     }
     
     @objc func loadData(){
-        getPost()
+        getPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: query)
+    }
+    @objc func searchBarClick(){
+        navigationItem.titleView = searchBar
+        searchBar.showsCancelButton = true
+        searchBar.backgroundColor = UIColor(white: 0.95, alpha: 0.7)
+        navigationItem.rightBarButtonItem = nil
+        searchBar.becomeFirstResponder()
+        searchBar.placeholder = "Search Brand"
+        searchList.showSuggestion()
+        
     }
     //MARK:-handlers
     
@@ -102,7 +156,7 @@ class FeedVC: UIViewController {
         collectionview.alwaysBounceVertical = true
         collectionview.refreshControl = refreshControl
         refreshControl.tintColor = .white
-   
+        
         view.addSubview(collectionview)
         collectionview.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom:view.bottomAnchor, rigth: view.rightAnchor, marginTop: 0, marginLeft: 0, marginBottom: 0, marginRigth: 0, width: 0, heigth: 0)
         collectionview.register(FeedCell.self, forCellWithReuseIdentifier: "id")
@@ -115,7 +169,7 @@ class FeedVC: UIViewController {
     }
     
     private func setNavBatButton(){
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "sort_by").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(sortQueries))
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(showMenu))
         let containView = UIView(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
         let imageview = UIImageView(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
@@ -135,11 +189,36 @@ class FeedVC: UIViewController {
             imageview.image = #imageLiteral(resourceName: "menu").withRenderingMode(.alwaysOriginal)
             imageview.contentMode = .scaleAspectFit
         }
-       
+        
         self.navigationItem.leftItemsSupplementBackButton = true
         
         navigationItem.leftBarButtonItems = [leftButton]
+        
+        searchBar.sizeToFit()
+        searchBar.delegate = self
+        showSearchBar(shouldShow: true)
+        
     }
+    func showSearchBar(shouldShow : Bool){
+        if shouldShow {
+            let item1 =  UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchBarClick))
+            let item2 =  UIBarButtonItem(image: #imageLiteral(resourceName: "sort_by").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(sortQueries))
+            navigationItem.rightBarButtonItems  = [item1,item2]
+            
+            
+        }else{
+            navigationItem.rightBarButtonItem = nil
+            
+            
+        }
+    }
+    func search( shouldShow : Bool ){
+        showSearchBar(shouldShow: !shouldShow)
+        searchBar.showsCancelButton = shouldShow
+        navigationItem.titleView = shouldShow ? searchBar : nil
+        
+    }
+    
     
     private func addTransprantView(frame : CGRect){
         guard  let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else { return }
@@ -149,7 +228,7 @@ class FeedVC: UIViewController {
         transparentView.alpha = 0
         window.addSubview(transparentView)
         tableView.frame = CGRect(x: frame.origin.x, y: window.safeAreaInsets.top, width: (window.frame.width / 2), height: 0)
-    
+        
         window.addSubview(tableView)
         tableView.layer.cornerRadius = 5
         let tapgesture = UITapGestureRecognizer(target: self, action: #selector(removeTransparentView))
@@ -160,33 +239,43 @@ class FeedVC: UIViewController {
         }, completion: nil)
     }
     
-    fileprivate func getPost(){
+    fileprivate func getPost(sortByPrice : Bool? , sortByYear : Bool?, sortByDate : Bool? , sortByQuery : String?){
         carList = [Car]()
-        loadMore = true
+        loadMore  = true
         collectionview.reloadData()
-        fetchPost {[weak self] (list) in
+        fetchPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: sortByQuery) {[weak self] (list) in
             guard let sself = self else { return }
             sself.carList = list
-            if list.count == 0{
+            if list.count == 0 {
                 sself.loadMore = false
                 sself.collectionview.reloadData()
                 sself.collectionview.refreshControl?.endRefreshing()
             }else{
-                if sself.carList.count > 0 {
-                    sself.carList.sort { (car1, car2) -> Bool in
-                        return car1.postTimeLong ?? Int64(Date().timeIntervalSince1970) > car2.postTimeLong ?? Int64(Date().timeIntervalSince1970)
-                    }
-                    sself.collectionview.reloadData()
-                    sself.collectionview.refreshControl?.endRefreshing()
-                }
+                sself.collectionview.reloadData()
+                sself.collectionview.refreshControl?.endRefreshing()
             }
         }
         
+        
+        
     }
-    func fetchPost(completion : @escaping([Car])->()){
+    func fetchPost(sortByPrice : Bool? , sortByYear : Bool? , sortByDate : Bool? , sortByQuery : String?,completion : @escaping([Car])->()){
         collectionview.refreshControl?.beginRefreshing()
         var post = [Car]()
-        let db = Firestore.firestore().collection("feed-post").limit(to: 5).order(by: "postTimeLong",descending: true)
+        let db = Firestore.firestore().collection("feed-post") as CollectionReference
+        if let _ = sortByPrice {
+            db.order(by: "price",descending: true).limit(to: 5)
+            
+        }
+        else if let _  = sortByDate {
+            db.order(by: "postTimeLong",descending: true).limit(to: 5)
+        }else if let _ = sortByYear {
+            db.order(by: "year",descending: true).limit(to: 5)
+        }else if let query = sortByQuery  {
+            db.whereField("brand", isEqualTo: query  as String).limit(to: 5)
+        }else{
+            db.limit(to: 5)
+        }
         db.getDocuments {[weak self] (querySnap, err) in
             guard let sself = self else { return }
             if let err = err {
@@ -200,6 +289,7 @@ class FeedVC: UIViewController {
                 if snap.isEmpty {
                     completion([])
                     sself.collectionview.refreshControl?.endRefreshing()
+                    print("DEBUG :: snap is empty")
                 }
                 for item in snap.documents {
                     let db = Firestore.firestore().collection("feed-post").document(item.documentID)
@@ -218,7 +308,7 @@ class FeedVC: UIViewController {
                 sself.page = snap.documents.last
                 sself.loadMore = true
                 sself.collectionview.refreshControl?.endRefreshing()
-                
+
             }
         }
     }
@@ -230,10 +320,19 @@ extension FeedVC : QueriesDelegate {
         
         case .sortByPrice:
             print("DEBUG:: sortByPrice")
+            self.sortByYear = nil
+            self.sortByDate = nil
+            self.sortByPrice = true
         case .sortByDate:
             print("DEBUG:: sortByDate")
+            self.sortByYear = nil
+            self.sortByDate = true
+            self.sortByPrice = nil
         case .sortByYear:
             print("DEBUG:: sortByYear")
+            self.sortByYear = true
+            self.sortByDate = nil
+            self.sortByPrice = nil
         }
     }
     
@@ -255,8 +354,8 @@ extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UIColl
         }else{
             cell.descp.frame = CGRect(x: 12, y: view.frame.width + 61, width: view.frame.width - 24, height: 19)
         }
-       
-      
+        
+        
         return cell
     }
     
@@ -270,11 +369,11 @@ extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if loadMore{
             return .zero
-//            return CGSize(width: view.frame.width, height: 50)
+            //            return CGSize(width: view.frame.width, height: 50)
         }else{
             return .zero
         }
-       
+        
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2
@@ -293,13 +392,70 @@ extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UIColl
         
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-      
-        guard let post = carList[indexPath.row] else { return }
-        let vc = SinglePost(currentUser : currentUser , car : carList[indexPath.row])
-        if post.senderUid! != currentUser.uid!  {
-            
+        
+        if carList[indexPath.row].senderUid! != currentUser.uid!  {
+            Utils.waitProgress(msg: nil)
+            UserService.shared.getOtherUser(uid: carList[indexPath.row].senderUid!) {[weak self] (user) in
+                guard let sself = self else { return }
+                guard let user = user else {
+                    Utils.dismissProgress()
+                    return
+                }
+                let vc = SinglePost(currentUser : sself.currentUser , car : sself.carList[indexPath.row])
+                vc.otherUser = user
+                sself.navigationController?.pushViewController(vc, animated: true)
+                Utils.dismissProgress()
+            }
+        }else{
+            let vc = SinglePost(currentUser : currentUser , car : carList[indexPath.row])
+            self.navigationController?.pushViewController(vc, animated: true)
         }
-        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
+}
+extension FeedVC : UISearchBarDelegate{
+    
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        search(shouldShow: false)
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        print("start")
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        print("cancel")
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty || searchText == " " {
+            isSearching = false
+            self.tableView.reloadData()
+        }
+        else
+        {
+            
+            var list = [String]()
+            isSearching = true
+            Firestore.firestore().collection("feed-post").order(by: "brand").whereField("brand", isGreaterThanOrEqualTo : searchText).whereField("brand", isLessThanOrEqualTo: "\(searchText)uf8ff").getDocuments { (querySnap, err) in
+                if let err = err {
+                    print("DEBUG :: searchin query err :\(err.localizedDescription)")
+                }
+                guard let snap = querySnap else { return }
+                if !snap.isEmpty{
+                    for item in snap.documents{
+                        print("DEBUG:: \(item.get("carModel") as! String)")
+                        if !list.contains(item.get("brand") as! String) {
+                            list.append(item.get("brand") as! String)
+                        }
+                        
+                        print("DEBUG:: \(list)")
+                    }
+                    self.searchList.searchResult = list
+                }else{
+                    self.searchList.searchResult = []
+                }
+            }
+            
+        }
+    }
 }

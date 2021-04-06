@@ -83,6 +83,16 @@ extension SinglePost :  UITableViewDataSource, UITableViewDelegate  {
             return cell
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier: contact_cell , for: indexPath) as! ContactCell
+            
+            if let user = otherUser {
+              
+                cell.nameString = user.name
+                cell.photoUrl = user.profileImage
+            }else{
+               
+                cell.nameString = currentUser.name
+                cell.photoUrl = currentUser.profileImage
+            }
             return cell
         }
     }

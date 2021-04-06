@@ -23,11 +23,11 @@ protocol GetCoordiant : class {
     func getCoordinat(locaiton : GeoPoint)
 }
 protocol AutoCompleteDelegate : class {
-   
     func ZoomInPlace(placemark:MKPlacemark)
     func dismisSearchBar(isSearching : Bool)
-    
-   
+}
+protocol SearchingDelegate : class{
+    func queryCallBack(query : String?)
 }
 protocol PickLocationDelegate : class {
     func didSelect(placeMark : MKPlacemark , placeName : String)

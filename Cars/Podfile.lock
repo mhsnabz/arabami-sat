@@ -212,7 +212,6 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
-  - ActiveLabel (1.1.0)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
@@ -225,7 +224,6 @@ PODS:
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
   - Cache (6.0.0)
-  - DynamicBlurView (4.1.0)
   - Firebase (7.3.0):
     - Firebase/Core (= 7.3.0)
   - Firebase/Analytics (7.3.0):
@@ -244,9 +242,6 @@ PODS:
   - Firebase/Firestore (7.3.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 7.3.0)
-  - Firebase/Messaging (7.3.0):
-    - Firebase/CoreOnly
-    - FirebaseMessaging (~> 7.3.0)
   - Firebase/Storage (7.3.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 7.3.0)
@@ -296,18 +291,6 @@ PODS:
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (7.3.0):
-    - FirebaseCore (~> 7.0)
-    - FirebaseInstallations (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/UserDefaults (~> 7.0)
-  - FirebaseMessaging (7.3.0):
-    - FirebaseCore (~> 7.0)
-    - FirebaseInstanceID (~> 7.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/Reachability (~> 7.0)
-    - GoogleUtilities/UserDefaults (~> 7.0)
   - FirebaseStorage (7.3.0):
     - FirebaseCore (~> 7.0)
     - GTMSessionFetcher/Core (~> 1.4)
@@ -387,48 +370,37 @@ PODS:
     - nanopb/encode (= 2.30906.0)
   - nanopb/decode (2.30906.0)
   - nanopb/encode (2.30906.0)
-  - PopupDialog (1.1.1):
-    - DynamicBlurView (~> 4.0)
   - PromisesObjC (1.2.12)
   - RevealingSplashView (0.6.0)
   - SDWebImage (5.10.1):
     - SDWebImage/Core (= 5.10.1)
   - SDWebImage/Core (5.10.1)
   - SVProgressHUD (2.2.5)
-  - SwiftyAttributes (5.1.1)
-  - SwipeCellKit (2.7.1)
   - TweeTextField (1.6.3)
 
 DEPENDENCIES:
-  - ActiveLabel
   - Firebase
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Crashlytics
   - Firebase/Firestore
-  - Firebase/Messaging
   - Firebase/Storage
   - Gallery
   - GoogleSignIn
   - ImagePicker
   - Lightbox
   - lottie-ios
-  - PopupDialog (~> 1.1)
   - RevealingSplashView
   - SDWebImage (~> 5.0)
   - SVProgressHUD
-  - SwiftyAttributes
-  - SwipeCellKit
   - TweeTextField
 
 SPEC REPOS:
   trunk:
     - abseil
-    - ActiveLabel
     - AppAuth
     - BoringSSL-GRPC
     - Cache
-    - DynamicBlurView
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -437,8 +409,6 @@ SPEC REPOS:
     - FirebaseCrashlytics
     - FirebaseFirestore
     - FirebaseInstallations
-    - FirebaseInstanceID
-    - FirebaseMessaging
     - FirebaseStorage
     - Gallery
     - GoogleAppMeasurement
@@ -455,22 +425,17 @@ SPEC REPOS:
     - Lightbox
     - lottie-ios
     - nanopb
-    - PopupDialog
     - PromisesObjC
     - RevealingSplashView
     - SDWebImage
     - SVProgressHUD
-    - SwiftyAttributes
-    - SwipeCellKit
     - TweeTextField
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
-  ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
-  DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
   FirebaseAnalytics: 2580c2d62535ae7b644143d48941fcc239ea897a
   FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
@@ -479,8 +444,6 @@ SPEC CHECKSUMS:
   FirebaseCrashlytics: d31325312c92e2cb2f0386d589b9aa44e303d99b
   FirebaseFirestore: 1906bf163afdb7c432d2e3b5c40ceb9dd2df5820
   FirebaseInstallations: 971df89b48ae5ee4cc2bf6935f3857a525d28550
-  FirebaseInstanceID: 5ccdee6a84e6b4bb5316de0a8cd88bc749ba490d
-  FirebaseMessaging: 68d1bcb14880189558a8ae57167abe0b7e417232
   FirebaseStorage: 5002b1895bfe74a5ce92ad54f966e6162d0da2e5
   Gallery: b7fc1aeb68a39ad6d2c423574750196bf9b25e5c
   GoogleAppMeasurement: 8d3c0aeede16ab7764144b5a4ca8e1d4323841b7
@@ -497,15 +460,12 @@ SPEC CHECKSUMS:
   Lightbox: cc3d5124f024fa8197fd23f913160db1c61a1852
   lottie-ios: 3a3758ef5a008e762faec9c9d50a39842f26d124
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
-  PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   RevealingSplashView: 40c5a770894459736acdc95655eeba0dd30ce91c
   SDWebImage: f66a16b95183b92ed6b965ad21d33167bc07612d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwiftyAttributes: e3e13891ddac3c62b3d7798d5c3969cea88e62bb
-  SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
   TweeTextField: 47bf8e7f0433364a7f7e119c45e7f278ea50eb62
 
-PODFILE CHECKSUM: d8a0a60ce348b9b1762389195810dbd615d66fcf
+PODFILE CHECKSUM: 736b870c148493eb2b9a6f0d73b366a6a1d88983
 
 COCOAPODS: 1.10.1

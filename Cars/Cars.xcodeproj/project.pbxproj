@@ -51,6 +51,7 @@
 		666E33B726176A270058DFA4 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666E33B626176A270058DFA4 /* LocationPicker.swift */; };
 		666E33EC261775CD0058DFA4 /* LocationAutoComplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666E33EB261775CD0058DFA4 /* LocationAutoComplete.swift */; };
 		666E33F12617A4840058DFA4 /* PickLocationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666E33F02617A4840058DFA4 /* PickLocationDialog.swift */; };
+		668ABEAC261C489000194CEF /* SearchingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668ABEAB261C489000194CEF /* SearchingList.swift */; };
 		66D1C3692618847500C8F19E /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D1C3682618847500C8F19E /* Car.swift */; };
 		66DC0F5B2618AC4A0017CBC2 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DC0F5A2618AC4A0017CBC2 /* PopUpViewController.swift */; };
 		66DC0F952619D4B40017CBC2 /* ChooseBrandController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DC0F942619D4B40017CBC2 /* ChooseBrandController.swift */; };
@@ -136,6 +137,7 @@
 		666E33B626176A270058DFA4 /* LocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
 		666E33EB261775CD0058DFA4 /* LocationAutoComplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAutoComplete.swift; sourceTree = "<group>"; };
 		666E33F02617A4840058DFA4 /* PickLocationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickLocationDialog.swift; sourceTree = "<group>"; };
+		668ABEAB261C489000194CEF /* SearchingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingList.swift; sourceTree = "<group>"; };
 		66D1C3682618847500C8F19E /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
 		66DC0F5A2618AC4A0017CBC2 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		66DC0F942619D4B40017CBC2 /* ChooseBrandController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBrandController.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				666E33EB261775CD0058DFA4 /* LocationAutoComplete.swift */,
 				666E33F02617A4840058DFA4 /* PickLocationDialog.swift */,
 				66DC0F5A2618AC4A0017CBC2 /* PopUpViewController.swift */,
+				668ABEAB261C489000194CEF /* SearchingList.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -774,6 +777,7 @@
 				660F94AC2613C3EC0004753F /* AppDelegate.swift in Sources */,
 				6617E162261B4531008C5FC7 /* SinglePost.swift in Sources */,
 				6617E168261B4745008C5FC7 /* ImagesCell.swift in Sources */,
+				668ABEAC261C489000194CEF /* SearchingList.swift in Sources */,
 				666E33952616304F0058DFA4 /* ImagesCollectionViewCell.swift in Sources */,
 				660F94AE2613C3EC0004753F /* SceneDelegate.swift in Sources */,
 				66E6DBA126148C4E0069F272 /* CurrentUser.swift in Sources */,
