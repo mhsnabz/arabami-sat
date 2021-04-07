@@ -107,3 +107,48 @@ extension String {
         return ceil(boundingBox.width)
     }
 }
+extension Date {
+   
+   
+    
+    func timeAgoDisplay() -> String {
+        let secondsAgo = Int(Date().timeIntervalSince(self))
+        
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        let week = 7 * day
+        
+        if secondsAgo < minute {
+            return " şimdi "
+        } else if secondsAgo < hour {
+            return "\(secondsAgo / minute) dk "
+        } else if secondsAgo < day {
+            return "\(secondsAgo / hour) sa"
+        } else if secondsAgo < week {
+            return "\(secondsAgo / day) g"
+        }
+        
+        return "\(secondsAgo / week) h"
+    }
+}
+extension Date {
+    var millisecondsSince1970:Int64 {
+        return Int64((self.timeIntervalSince1970 * 1000.0).rounded())
+    }
+    
+    init(milliseconds:Int64) {
+        self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
+    }
+    func isInSameDayOf(date: Date) -> Bool {
+          return Calendar.current.isDate(self, inSameDayAs: date)
+      }
+      
+      func isToday() -> Bool {
+          return Calendar.current.isDateInToday(self)
+      }
+      
+      func wasYesterday() -> Bool {
+          return Calendar.current.isDateInYesterday(self)
+      }
+}

@@ -38,6 +38,10 @@ target 'Cars' do
 
   pod 'RealmSwift'
 
+  pod 'MessageKit'
+  
+  pod 'SnapKit', '~> 5.0.0'
+
   target 'CarsTests' do
     inherit! :search_paths
     # Pods for testing

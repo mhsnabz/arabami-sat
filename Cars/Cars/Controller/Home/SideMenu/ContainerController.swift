@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 class ContainerController: UIViewController {
     //MARK:-variables
     var menuController : MenuController!
@@ -69,9 +69,30 @@ class ContainerController: UIViewController {
                 self.centralController.view.frame.origin.x = 0
                       self.centralController.view.layer.shadowOpacity = 0.0
             }) { (_) in
-//                guard let menuOption = menuOption else{return}
-//                self.didSelectMenuOption(menuOPtion: menuOption)
+                guard let menuOption = menuOption else{return}
+                self.didSelectMenuOption(menuOption: menuOption)
             }
+        }
+    }
+    
+    func didSelectMenuOption(menuOption : MenuOption){
+        switch menuOption{
+        
+        case .setting:
+            print("DEBUG :: setting vc")
+            break
+        case .messages:
+            print("DEBUG:: chatVC")
+            let vc = ChatList(currentUser: currentUser)
+            let rootController = UINavigationController(rootViewController: vc)
+            rootController.modalPresentationStyle = .fullScreen
+            self.present(rootController, animated: true, completion: nil)
+            break
+        case .logOut:
+            try! Auth.auth().signOut()
+            let vc = SplashScreen()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
         }
     }
     
