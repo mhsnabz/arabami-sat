@@ -109,8 +109,6 @@ extension String {
 }
 extension Date {
    
-   
-    
     func timeAgoDisplay() -> String {
         let secondsAgo = Int(Date().timeIntervalSince(self))
         
@@ -120,16 +118,16 @@ extension Date {
         let week = 7 * day
         
         if secondsAgo < minute {
-            return " şimdi "
+            return " now "
         } else if secondsAgo < hour {
-            return "\(secondsAgo / minute) dk "
+            return "\(secondsAgo / minute) min "
         } else if secondsAgo < day {
-            return "\(secondsAgo / hour) sa"
+            return "\(secondsAgo / hour) ho"
         } else if secondsAgo < week {
-            return "\(secondsAgo / day) g"
+            return "\(secondsAgo / day) d"
         }
         
-        return "\(secondsAgo / week) h"
+        return "\(secondsAgo / week) we"
     }
 }
 extension Date {
