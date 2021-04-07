@@ -21,6 +21,7 @@ class OffOnlineObj : Object{
     @objc dynamic var postTime = NSDate()
     @objc dynamic var price : Int = 0
     @objc dynamic var year : Int = 0
+    @objc dynamic var km : Int = 0
     var postTimeLong = RealmOptional<Int64>()
     var imageList = List<String>()
     override static func primaryKey() -> String{

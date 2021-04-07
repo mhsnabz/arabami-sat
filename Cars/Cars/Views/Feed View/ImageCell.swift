@@ -14,6 +14,7 @@ class ImageCell: UICollectionViewCell {
             guard let url = imageUrl else { return }
             imageView.sd_imageIndicator = SDWebImageActivityIndicator.white
             imageView.sd_setImage(with: URL(string: url))
+          
         }
     }
     

@@ -20,14 +20,12 @@ class FeedVC: UIViewController, SearchingDelegate {
     }
     
     //MARK:-variables
-    var hasInternet : Bool?{
+    var hasInternet : Bool = true{
         didSet{
-            if let network = hasInternet {
-                if network {
-                    print("DEBUG:: has internet")
-                }else{
-                    print("DEBUG:: has not internet")
-                }
+            if hasInternet {
+                print("DEBUG:: has internet")
+            }else{
+                print("DEBUG:: has not internet")
             }
         }
     }
@@ -67,8 +65,8 @@ class FeedVC: UIViewController, SearchingDelegate {
         didSet{
             if let price = sortByPrice {
                 
-                if let connection = hasInternet {
-                    if connection {
+              
+                    if hasInternet {
                         if price {
                           carList.sort { (car1, car2) -> Bool in
                                 return car1.price ?? 0 < car2.price ?? 0
@@ -88,7 +86,7 @@ class FeedVC: UIViewController, SearchingDelegate {
                             }
                         }
                     }
-                }
+                
                 
                
             }
@@ -97,24 +95,62 @@ class FeedVC: UIViewController, SearchingDelegate {
     var sortByYear : Bool?{
         didSet{
             if let sortByYear = sortByYear {
-                if sortByYear {
-                    carList.sort { (car1, car2) -> Bool in
-                        return car1.price ?? 0 < car2.price ?? 0
+                
+                
+                    if hasInternet {
+                        if sortByYear {
+                            carList.sort { (car1, car2) -> Bool in
+                                return car1.price ?? 0 < car2.price ?? 0
+                            }
+                            collectionview.reloadData()
+                        }
+                    }else{
+                        if sortByYear {
+                            carList = [Car]()
+                            self.getRealmArrayList {[weak self] (list) in
+                                guard let sself = self else { return }
+                                sself.carList = list
+                                sself.carList.sort { (car1, car2) -> Bool in
+                                      return car1.year ?? 0 < car2.year ?? 0
+                                  }
+                                sself.collectionview.reloadData()
+                            }
+                        }
                     }
-                    collectionview.reloadData()
-                }
+                
+                
+              
             }
         }
     }
     var sortByDate : Bool?{
         didSet{
             if let sortByDate = sortByDate {
-                if sortByDate {
-                    carList.sort { (car1, car2) -> Bool in
-                        return car1.price ?? 0 < car2.price ?? 0
+                
+               
+                    if hasInternet {
+                        if sortByDate {
+                            carList.sort { (car1, car2) -> Bool in
+                                return car1.postId ?? "" < car2.postId ?? ""
+                            }
+                            collectionview.reloadData()
+                        }
+                    }else{
+                        if sortByDate {
+                            carList = [Car]()
+                            self.getRealmArrayList {[weak self] (list) in
+                                guard let sself = self else { return }
+                                sself.carList = list
+                                sself.carList.sort { (car1, car2) -> Bool in
+                                      return car1.postId ?? "" < car2.postId ?? ""
+                                  }
+                                sself.collectionview.reloadData()
+                            }
+                        }
                     }
-                    collectionview.reloadData()
-                }
+                
+                
+               
             }
         }
     }
@@ -179,19 +215,25 @@ class FeedVC: UIViewController, SearchingDelegate {
  
     private func getRealmArrayList(completion : @escaping([Car])->Void){
         var items = [Car]()
-        let oCars = try! uiRealm.objects(OffOnlineObj.self)
+       
+        let oCars = uiRealm.objects(OffOnlineObj.self)
         for offOnlineObj in oCars {
-            let dic  = ["brand":offOnlineObj.brand ,
-                        "carModel": offOnlineObj.carModel ,
-                        "decription" :offOnlineObj.decription ,
-                        "locationName":  offOnlineObj.locationName ,
-                        "imageList" : offOnlineObj.imageList ,
+            var image_list = [String]()
+            for item in offOnlineObj.imageList{
+                image_list.append(item)
+            }
+            let dic  = ["brand":offOnlineObj.brand as Any,
+                        "carModel": offOnlineObj.carModel as Any,
+                        "decription" :offOnlineObj.decription as Any,
+                        "locationName":  offOnlineObj.locationName as Any,
+                        "imageList" : image_list ,
                         "locaiton"  : GeoPoint(latitude: offOnlineObj.lat, longitude: offOnlineObj.longLat) ,
-                        "postId" :  offOnlineObj.postID  ,
-                        "postTime" : Timestamp(date: (offOnlineObj.postTime as! NSDate) as Date),
-                        "senderImage" :offOnlineObj.senderImage ,
-                        "senderUid" : offOnlineObj.senderUid,
-                        "senderName":offOnlineObj.senderName ,
+                        "postId" :  offOnlineObj.postID  as Any,
+                        "postTime" : Timestamp(date: (offOnlineObj.postTime ) as Date) as Any,
+                        "senderImage" :offOnlineObj.senderImage as Any ,
+                        "senderUid" : offOnlineObj.senderUid as Any,
+                        "senderName":offOnlineObj.senderName as Any ,
+                        "km":offOnlineObj.km,
                         "year" : offOnlineObj.year,
                         "price":offOnlineObj.price ] as [String : AnyObject]
             items.append(Car.init(dic: dic))
@@ -333,24 +375,40 @@ class FeedVC: UIViewController, SearchingDelegate {
     }
     
     fileprivate func getPost(sortByPrice : Bool? , sortByYear : Bool?, sortByDate : Bool? , sortByQuery : String?){
-        carList = [Car]()
-        loadMore  = true
-        collectionview.reloadData()
-        fetchPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: sortByQuery) {[weak self] (list) in
-            guard let sself = self else { return }
-            sself.carList = list
-            if list.count == 0 {
-                sself.loadMore = false
-                sself.collectionview.reloadData()
-                sself.collectionview.refreshControl?.endRefreshing()
-            }else{
-                sself.carList.sort { (car1, car2) -> Bool in
-                    return car1.price ?? 0 < car2.price ?? 0
+     
+            if hasInternet {
+                carList = [Car]()
+                loadMore  = true
+                collectionview.reloadData()
+                fetchPost(sortByPrice: sortByPrice, sortByYear: sortByYear, sortByDate: sortByDate, sortByQuery: sortByQuery) {[weak self] (list) in
+                    guard let sself = self else { return }
+                    sself.carList = list
+                    if list.count == 0 {
+                        sself.loadMore = false
+                        sself.collectionview.reloadData()
+                        sself.collectionview.refreshControl?.endRefreshing()
+                    }else{
+                        sself.carList.sort { (car1, car2) -> Bool in
+                            return car1.price ?? 0 < car2.price ?? 0
+                        }
+                        sself.loadMore = true
+                        sself.collectionview.reloadData()
+                        sself.collectionview.refreshControl?.endRefreshing()
+                    }
                 }
-                sself.collectionview.reloadData()
-                sself.collectionview.refreshControl?.endRefreshing()
+            }else{
+                self.collectionview.refreshControl?.endRefreshing()
+                self.getRealmArrayList {[weak self] (list) in
+                    guard let sself = self else { return }
+                    sself.carList = list
+                    sself.carList.sort { (car1, car2) -> Bool in
+                          return car1.postId ?? "" < car2.postId ?? ""
+                      }
+                    sself.collectionview.reloadData()
+                }
             }
-        }
+        
+    
     }
     func fetchPost(sortByPrice : Bool? , sortByYear : Bool? , sortByDate : Bool? , sortByQuery : String?,completion : @escaping([Car])->()){
         collectionview.refreshControl?.beginRefreshing()
@@ -407,7 +465,57 @@ class FeedVC: UIViewController, SearchingDelegate {
             }
         }
     }
-    
+    private func loadMorePost(){
+        guard let page = page else {
+            loadMore = false
+            collectionview.reloadData()
+            return
+        }
+        let db = Firestore.firestore().collection("feed-post").limit(to: 5).start(afterDocument: page)
+        db.getDocuments {[weak self] (querySnap, err) in
+            guard let sself = self else { return }
+            if let err = err {
+                print("DEBUG:: load more err : \(err.localizedDescription)")
+            }else{
+                guard let snap = querySnap else { return }
+                if snap.isEmpty {
+                    sself.loadMore = false
+                    sself.collectionview.reloadData()
+                    
+                }else{
+                    for item in snap.documents{
+                        sself.carList.append(Car.init(dic: item.data()))
+                        if let date = sself.sortByDate {
+                            if date {
+                                sself.carList.sort { (car1, car2) -> Bool in
+                                    return car1.postId ?? "" < car2.postId ?? ""
+                                }
+                            }
+                        }else if let year = sself.sortByYear {
+                            if year {
+                                sself.carList.sort { (car1, car2) -> Bool in
+                                    return car1.year ?? 0 < car2.year ?? 0
+                                }
+                            }
+                        }else if let price = sself.sortByPrice{
+                            if price {
+                                sself.carList.sort { (car1, car2) -> Bool in
+                                    return car1.price ?? 0 < car2.price ?? 0
+                                }
+                            }
+                        }else{
+                            sself.carList.sort { (car1, car2) -> Bool in
+                                return car1.postId ?? "" < car2.postId ?? ""
+                            }
+
+                        }
+                    }
+                    sself.loadMore = true
+                    sself.collectionview.reloadData()
+                }
+            }
+        }
+    }
     private func writeToRealm(car : Car){
         let offOnlineObj = OffOnlineObj()
         offOnlineObj.brand = car.brand
@@ -427,7 +535,8 @@ class FeedVC: UIViewController, SearchingDelegate {
         offOnlineObj.senderUid = car.senderUid
         offOnlineObj.senderName = car.senderName
         offOnlineObj.price = car.price ?? 0
-        offOnlineObj.year = car.year
+        offOnlineObj.year = car.year!
+        offOnlineObj.km = car.km!
         offOnlineObj.writeToRealm()
     }
 }
@@ -486,8 +595,7 @@ extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UIColl
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if loadMore{
-            return .zero
-            //            return CGSize(width: view.frame.width, height: 50)
+            return CGSize(width: view.frame.width, height: 50)
         }else{
             return .zero
         }
@@ -530,6 +638,21 @@ extension FeedVC : UICollectionViewDataSource, UICollectionViewDelegate , UIColl
         }
         
     }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if hasInternet {
+            if carList.count > 4 {
+                if indexPath.item == carList.count - 1 {
+                    self.loadMorePost()
+                }else{
+                    self.loadMore = false
+                }
+            }
+        }else{
+            self.loadMore = false
+        }
+        
+    }
+
     
 }
 extension FeedVC : UISearchBarDelegate{
