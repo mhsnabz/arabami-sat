@@ -11,7 +11,17 @@ private let contact_cell = "contact_cell"
 private let location_cell = "location_cell"
 private let despription_cell = "despription_cell"
 private let images_cell = "images_cell"
-class SinglePost: UIViewController{
+class SinglePost: UIViewController, ContactDelegate{
+    func sendMessage(for cell: ContactCell) {
+        guard let user = cell.otherUser else { return }
+      
+        self.navigationController?.pushViewController(  ConservationController(currentUser: currentUser, otherUser: user), animated: true)
+    }
+    
+    func phoneCall(for cell: ContactCell) {
+        
+    }
+    
     var car : Car
     var currentUser : CurrentUser
     var otherUser : OtherUser?
@@ -83,11 +93,13 @@ extension SinglePost :  UITableViewDataSource, UITableViewDelegate  {
             return cell
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier: contact_cell , for: indexPath) as! ContactCell
-            
+            cell.contentView.isUserInteractionEnabled = false 
             if let user = otherUser {
               
                 cell.nameString = user.name
                 cell.photoUrl = user.profileImage
+                cell.delegate = self
+                cell.otherUser = otherUser
             }else{
                
                 cell.nameString = currentUser.name

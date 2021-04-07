@@ -58,3 +58,13 @@ protocol PopUpNumberDelegate : class {
     func handleDismissal( _ target : String)
     func addPrice(_ target : String?)
 }
+protocol ContactDelegate : class {
+    func sendMessage( for cell : ContactCell)
+    func phoneCall (for cell : ContactCell)
+}
+protocol MessagesItemDelagate : class {
+    func didSelect(option : MesagesItemOption)
+}
+protocol DismisDelegate : class {
+    func dismisMenu()
+}

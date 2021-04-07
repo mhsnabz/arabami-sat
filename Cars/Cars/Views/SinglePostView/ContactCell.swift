@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 class ContactCell: UITableViewCell {
-
+    weak var delegate : ContactDelegate?
     var nameString : String? {
         didSet{
             fullName.text = nameString
@@ -20,6 +20,7 @@ class ContactCell: UITableViewCell {
             profileImage.sd_setImage(with: URL(string: photoUrl!))
         }
     }
+    var otherUser : OtherUser?
     let profileImage : UIImageView = {
        let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -35,9 +36,9 @@ class ContactCell: UITableViewCell {
         return lbl
     }()
     
-    let sendMsg : UIButton = {
+    lazy var sendMsg : UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Send Direkt Message", for: .normal)
+        btn.setTitle("Send Direct Message", for: .normal)
         btn.titleLabel?.font = UIFont(name: Utils.font, size: 12)
         btn.setTitleColor(.white, for: .normal)
         btn.backgroundColor = .mainColor()
@@ -45,7 +46,7 @@ class ContactCell: UITableViewCell {
         btn.layer.cornerRadius = 5
         return btn
     }()
-    let callPhone : UIButton = {
+    lazy var callPhone : UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Call", for: .normal)
         btn.titleLabel?.font = UIFont(name: Utils.font, size: 12)
@@ -71,9 +72,18 @@ class ContactCell: UITableViewCell {
         stack.axis = .horizontal
         addSubview(stack)
         stack.anchor(top: profileImage.bottomAnchor, left: leftAnchor, bottom: nil, rigth: rightAnchor, marginTop: 8, marginLeft: 12, marginBottom: 0, marginRigth: 12, width: 0, heigth: 50)
+        callPhone.addTarget(self, action: #selector(phoneCall), for: .touchUpInside)
+        sendMsg.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    //MARK:-selectors
+    @objc func phoneCall(){
+        delegate?.phoneCall(for: self)
+    }
+    @objc func sendMessage(){
+        delegate?.sendMessage(for: self)
     }
 }

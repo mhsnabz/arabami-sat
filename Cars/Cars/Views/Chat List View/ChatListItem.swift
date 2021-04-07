@@ -132,9 +132,6 @@ class ChatListItem: UICollectionViewCell {
         }else if user.type == "location"{
             msgKidImage.image = #imageLiteral(resourceName: "location-orange").withRenderingMode(.alwaysOriginal)
     
-        }else if user.type == "audio"{
-            msgKidImage.image = #imageLiteral(resourceName: "audio").withRenderingMode(.alwaysOriginal)
-      
         }
         
         lastMsg.text = user.lastMsg

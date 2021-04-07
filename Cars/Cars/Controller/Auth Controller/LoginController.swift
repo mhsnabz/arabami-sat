@@ -178,10 +178,63 @@ class LoginController: UIViewController {
         
     }
     @objc func formValidations(){
-        
+        guard
+            email.hasText , password.hasText else {
+                btnLogin.isEnabled = false
+                btnLogin.backgroundColor = UIColor.mainColorTransparent()
+                return
+        }
+        btnLogin.isEnabled = true
+        btnLogin.backgroundColor = UIColor.mainColor()
     }
     @objc func loginClick(){
-        
+        Utils.waitProgress(msg: "Sing In...")
+        guard let _email = email.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) else { return}
+        guard let pass = password.text else { return }
+        Auth.auth().signIn(withEmail: _email, password: pass) {[weak self] (result, err) in
+            guard let self = self else {
+                Utils.dismissProgress()
+                return }
+            if  err == nil {
+                let vc = SplashScreen()
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
+                Utils.dismissProgress()
+            }else{
+                if err?.localizedDescription == "The password is invalid or the user does not have a password." {
+                   
+                    self.password.infoLabel.text = "ŞThe password is invalid or the user does not have a password."
+                    self.email.infoLabel.text = ""
+                    Utils.dismissProgress()
+                    return
+                }
+                if err?.localizedDescription == "The email address is badly formatted."{
+                    self.password.infoLabel.text = ""
+                    self.email.infoLabel.text = "The email address is badly formatted."
+                   
+                    Utils.dismissProgress()
+                    
+                    return
+                }
+                if err?.localizedDescription == "There is no user record corresponding to this identifier. The user may have been deleted."{
+                    self.password.infoLabel.text = ""
+                    self.email.infoLabel.text = "There is no user record corresponding to this identifier. The user may have been deleted."
+                   
+                    Utils.dismissProgress()
+                    
+                    return
+                }
+                if err?.localizedDescription == "Network error (such as timeout, interrupted connection or unreachable host) has occurred."{
+                
+                    self.email.infoLabel.text = "INetwork error"
+                    self.password.infoLabel.text = ""
+                 
+                    Utils.dismissProgress()
+                    
+                    return
+                }
+            }
+        }
     }
     @objc func signUp(){
         let vc = RegisterController()

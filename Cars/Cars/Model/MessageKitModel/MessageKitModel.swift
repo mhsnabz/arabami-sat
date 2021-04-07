@@ -15,8 +15,8 @@ struct Message : MessageType {
     var kind: MessageKind
 }
 public struct SelfSender : SenderType {
-    var senderId: String
-    var displayName: String
+    public var senderId: String
+    public var displayName: String
     var profileImageUrl : String
     
 }

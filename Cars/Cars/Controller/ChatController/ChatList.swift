@@ -116,8 +116,8 @@ extension ChatList : UICollectionViewDelegate , UICollectionViewDelegateFlowLayo
         UserService.shared.getOtherUser(uid: list[indexPath.row].uid) {[weak self] (user) in
             guard let sself = self else { return }
             guard let user = user else { return }
-          //  let vc = ConservationVC(currentUser: currentUser, otherUser: user)
-//            sself.rootController?.navigationController?.pushViewController(vc, animated: true)
+            let vc = ConservationController(currentUser: sself.currentUser, otherUser: user)
+            sself.navigationController?.pushViewController(vc, animated: true)
             Utils.dismissProgress()
         }
     }
